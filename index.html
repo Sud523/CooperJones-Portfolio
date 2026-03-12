@@ -75,7 +75,7 @@
     }
 
     .hero-name {
-      font-size: clamp(2.4rem, 4vw, 3rem);
+      font-size: clamp(3.4rem, 4vw, 4rem);
       font-weight: 700;
       letter-spacing: 0.04em;
       color: #f7f5f0;
@@ -170,11 +170,12 @@
     .tagline span {
       padding: 5px 12px;
       border-radius: 0;
-      background: #e9e7e0;
-      border: 2px solid #000000;
+      background: transparent;
+      border: 2px solid #ffffff;
       font-size: 0.8rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      color: #ffffff;
     }
 
     nav {
@@ -186,20 +187,20 @@
     nav a {
       text-decoration: none;
       font-size: 0.86rem;
-      color: #000000;
+      color: #ffffff;
       padding: 6px 14px;
       border-radius: 0;
-      border: 2px solid #000000;
-      background: #e9e7e0;
+      border: 2px solid #ffffff;
+      background: transparent;
       transition: background var(--transition-fast), color var(--transition-fast),
                   border-color var(--transition-fast), transform var(--transition-fast),
                   box-shadow var(--transition-fast);
     }
 
     nav a:hover {
-      color: #000000;
-      border-color: #000000;
-      background: #f3f1ea;
+      color: #3a3b3f;
+      border-color: #ffffff;
+      background: #ffffff;
       transform: translateY(-1px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
@@ -308,12 +309,12 @@
       padding: 5px 11px;
       border-radius: 0;
       border: 1px solid var(--border-subtle);
-      background: #ffffff;
+      background: var(--bg-elevated);
       color: var(--text-muted);
     }
 
     .pill.secondary {
-      background: #f2f3f7;
+      background: var(--bg-elevated);
       color: var(--text-muted);
     }
 
@@ -323,9 +324,9 @@
 
     .hero .pill,
     .hero .pill.secondary {
-      background: #e9e7e0;
-      color: #000000;
-      border: 2px solid #000000;
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
     }
 
     .project-section {
@@ -399,38 +400,43 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 0;
-      border: 1px solid rgba(35, 86, 162, 0.4);
-      background: #ffffff;
-      color: var(--accent);
-      font-size: 0.9rem;
+      border: 2px solid #000000;
+      background: var(--bg-elevated);
+      color: #000000;
+      font-size: 0.86rem;
       text-decoration: none;
-      transition: background var(--transition-fast), transform var(--transition-fast),
+      transition: background var(--transition-fast), color var(--transition-fast),
+                  border-color var(--transition-fast), transform var(--transition-fast),
                   box-shadow var(--transition-fast);
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+      box-shadow: none;
     }
 
     .btn:hover {
+      color: #000000;
+      border-color: #000000;
+      background: #f3f1ea;
       transform: translateY(-1px);
-      background: #f3f5fb;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     .btn.secondary {
-      border-color: var(--border-subtle);
-      background: #f3f4f8;
-      box-shadow: none;
-      color: var(--text-muted);
+      border-color: #000000;
+      background: var(--bg-elevated);
+      color: #000000;
     }
 
     .btn.secondary:hover {
-      color: var(--accent);
-      border-color: rgba(35, 86, 162, 0.4);
+      color: #000000;
+      border-color: #000000;
+      background: #f3f1ea;
     }
 
     .btn-icon {
       font-size: 0.95em;
+      color: #000000;
+      filter: grayscale(1);
     }
 
     .media-card {
@@ -473,8 +479,8 @@
     }
 
     .screenshot-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-top: 10px;
     }
@@ -483,23 +489,96 @@
       position: relative;
       border-radius: 0;
       overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: #f6f7fb;
-      min-height: 84px;
+      border: none;
+      background: transparent;
+      min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
       color: var(--text-muted);
       text-align: center;
-      padding: 10px;
+      padding: 0;
+      flex: 0 1 150px;
     }
 
     .screenshot img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
       display: block;
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Dolly's World screenshots: below video in a horizontal line, flush borders */
+    #dollys-world .screenshot-grid {
+      justify-content: flex-start;
+      gap: 12px;
+    }
+
+    #dollys-world .screenshot {
+      padding: 0;
+      min-height: 0;
+      background: transparent;
+      flex: 0 1 220px;
+    }
+
+    #dollys-world .screenshot img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Don't Stop Climbing screenshots: smaller, preserve aspect ratio */
+    #dont-stop-climbing .screenshot {
+      flex: 0 1 140px;
+      min-width: 120px;
+    }
+
+    #dont-stop-climbing .screenshot img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Don't Stop Climbing layout: keep buttons aligned with bottom of screenshots */
+    #dont-stop-climbing .project-meta {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    #dont-stop-climbing .project-meta .link-row {
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    /* Second Dolly's World screenshot: slightly smaller while preserving aspect ratio */
+    #dollys-world .screenshot:nth-child(2) {
+      flex: 0 1 160px;
+    }
+
+    /* All images: indicate clickability for lightbox */
+    img {
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    img:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    /* When lightbox is open, remove hover treatment so enlarged image stays still */
+    body.is-lightbox-open img {
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    body.is-lightbox-open img:hover {
+      transform: none;
+      box-shadow: none;
     }
 
     .role-block {
@@ -538,13 +617,14 @@
     }
 
     .two-column-stack {
-      display: grid;
-      gap: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     @media (min-width: 900px) {
       .two-column-stack {
-        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr);
+        flex-direction: column;
       }
     }
 
@@ -555,6 +635,65 @@
       text-align: center;
       opacity: 0.75;
     }
+
+    /* Image lightbox */
+    .image-lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .image-lightbox-backdrop.is-visible {
+      display: flex;
+    }
+
+    .image-lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 0;
+      border: 2px solid #ffffff;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .image-lightbox-content img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .image-lightbox-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid #ffffff;
+      background: rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      padding: 12px 16px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 0;
+      z-index: 1000;
+    }
+
+    .image-lightbox-button:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .image-lightbox-prev {
+      left: 16px;
+    }
+
+    .image-lightbox-next {
+      right: 16px;
+    }
   </style>
 </head>
 <body>
@@ -563,24 +702,21 @@
       <div class="home-text">
         <div class="hero-text-heading">
           <div class="hero-name">Cooper Jones</div>
-          <div class="hero-subtitle">Technical Game & Level Designer · Gameplay Programmer</div>
+          <div class="hero-subtitle">Technical Game & Level Designer | Gameplay Programmer</div>
         </div>
         <div class="hero-copy">
           <p>
-            I design and implement moment-to-moment gameplay: building systems in Unity, blocking out levels,
-            tuning feel, and collaborating on narrative so mechanics, spaces, and story all support the same goals.
+            I design games that put players first, creating systems and levels that are fun, interactive, and meaningful. From darker narratives to lighter experiences, I focus on crafting moments that feel engaging and rewarding.
           </p>
           <p>
-            I’m currently looking for roles as a <strong>Technical Game Designer</strong>, <strong>Game/Level Designer</strong>,
-            or <strong>Gameplay Programmer</strong>. I enjoy working close to the engine—iterating on mechanics,
-            scripting encounters, and shaping spaces that guide players intuitively through an experience.
+            I’m seeking roles as a <strong>Gameplay Programmer</strong>, <strong>Level Designer</strong>, or <strong>Technical Game Designer</strong>, but I’m open to opportunities where I can help players have great experiences.
           </p>
           <div class="meta-item-label">Focus Areas</div>
           <div class="pill-list">
             <div class="pill">Technical Game Design</div>
             <div class="pill secondary">Level & Encounter Design</div>
             <div class="pill secondary">Gameplay Programming</div>
-            <div class="pill secondary">Unity · C#</div>
+            <div class="pill secondary">Unity & C#</div>
             <div class="pill secondary">VR / XR</div>
           </div>
         </div>
@@ -603,7 +739,7 @@
         <div class="identity">
           <div class="name">Cooper Jones</div>
           <div class="tagline">
-            <span>Technical Game & Level Designer · Gameplay Programmer</span>
+            <span>Technical Game & Level Designer | Gameplay Programmer</span>
           </div>
         </div>
         <nav>
@@ -625,35 +761,37 @@
               <div class="project-label">2D Narrative Platformer</div>
               <h2>Don't Stop Climbing</h2>
               <div class="project-tagline">
-                A 2D narrative platformer about persistence, self-doubt, and pushing through psychological obstacles.
+                Don't Stop Climbing is a 2D narrative-driven platformer where players guide 
+                Alaric through the base of a mysterious mountain while learning core movement mechanics and exploring unsettling environments. 
+                The game focuses on themes of persistence and psychological struggle, framing death not as failure but as a brief pause in an ongoing climb.
               </div>
               <p>
-                I treated this project as a playground for technical design and level design: prototyping movement and
-                jump arcs, scripting interactions, and iterating on vertical layouts that reinforce the emotional arc
-                of “climbing” both physically and psychologically.
+                While building Don't Stop Climbing, I focused on how level structure and mechanics could reinforce the theme of persistence. 
+                Although the overall progression is vertical, many sections require players to move horizontally or briefly descend before continuing upward, 
+                emphasizing that progress is not always a straight climb. I also designed the feather collectible system to encourage exploration. 
+                Feathers are placed slightly off the main path, often requiring players to experiment with movement or approach areas from different angles. 
+                Collecting them rewards players with additional currency and, in later versions of the project, will unlock additional rewards. 
+                This system helps reinforce the idea that slowing down and exploring the mountain can be just as valuable as pushing upward as quickly as possible.
               </p>
 
               <div class="meta-list">
                 <div>
                   <div class="meta-item-label">Role</div>
-                  <div class="meta-item-value">Technical Game Designer · Gameplay Programmer · Level Designer</div>
+                  <div class="meta-item-value">Technical Game Designer | Gameplay Programmer | Level Designer</div>
                 </div>
                 <div>
                   <div class="meta-item-label">Key Contributions</div>
                   <div class="meta-item-value">
-                    Player controller and movement tuning, authored level greyboxes and final passes,
-                    scripted narrative triggers and pacing, and defined onboarding/UX flow.
+                    Solo development: gameplay systems, player controller, level design, narrative triggers, and onboarding flow. Art and audio assets sourced externally.
                   </div>
                 </div>
               </div>
 
               <div class="link-row">
-                <a class="btn" href="build.zip">
-                  <span class="btn-icon">⬇</span>
-                  <span>Download Playable Build</span>
+                <a class="btn" href="https://sud523.itch.io" target="_blank" rel="noreferrer">
+                  <span>Play on itch.io</span>
                 </a>
                 <a class="btn secondary" href="design_doc.pdf" target="_blank" rel="noreferrer">
-                  <span class="btn-icon">📄</span>
                   <span>View Design Documentation</span>
                 </a>
               </div>
@@ -661,7 +799,8 @@
 
             <div class="two-column-stack">
               <div class="media-card">
-                <div class="media-title">Gameplay Overview</div>
+                <div class="media-title">Gameplay Preview
+                </div>
                 <div class="video-frame">
                   <iframe
                     src="YOUTUBE_LINK"
@@ -680,13 +819,28 @@
                 <div class="media-title">Screenshots & Layouts</div>
                 <div class="screenshot-grid">
                   <div class="screenshot">
-                    Add a key moment screenshot here (e.g., mid-climb set piece).
+                  <img src="Images/DSC1.png" alt="Don't Stop Climbing key moment screenshot">
                   </div>
                   <div class="screenshot">
-                    Add an image showing level layout or greybox-to-final comparison.
+                  <img src="Images/DSC2.png" alt="Don't Stop Climbing level layout or greybox comparison">
                   </div>
                   <div class="screenshot">
-                    Add UI or narrative moment capture that highlights player feedback.
+                  <img src="Images/DSC3.png" alt="Don't Stop Climbing UI or narrative moment">
+                </div>
+                <div class="screenshot">
+                  <img src="Images/DSC4.png" alt="Don't Stop Climbing additional screenshot 4">
+                </div>
+                <div class="screenshot">
+                  <img src="Images/DSC5.png" alt="Don't Stop Climbing additional screenshot 5">
+                </div>
+                <div class="screenshot">
+                  <img src="Images/DSC6.png" alt="Don't Stop Climbing additional screenshot 6">
+                </div>
+                <div class="screenshot">
+                  <img src="Images/DSC7.png" alt="Don't Stop Climbing additional screenshot 7">
+                </div>
+                <div class="screenshot">
+                  <img src="Images/DSC8.png" alt="Don't Stop Climbing additional screenshot 8">
                   </div>
                 </div>
               </div>
@@ -695,51 +849,39 @@
 
           <div class="project-layout" id="dollys-world">
             <div class="project-meta">
-              <div class="project-label">Research VR Experience</div>
+              <div class="project-label">VR Research Experience</div>
               <h2>Dolly's World</h2>
               <div class="project-tagline">
-                An escape-room-style VR game exploring queer relationships, labor, and class through surreal
-                children’s television aesthetics.
+                Dolly’s World is a VR escape-room experience on the Oculus Quest, set inside a surreal 1990s/early 2000s children’s TV show. 
+                Players solve puzzles to uncover the story of Bee and Jess, exploring themes of queer relationships, labor, and class through immersive interactions and environmental storytelling.
               </div>
 
-              <div class="rich-text">
-                <p>
-                  Dolly’s World is an escape-room-style virtual reality game developed in Unity for the Oculus Quest
-                  by undergraduate researchers in the Computer Science and English Departments under the mentorship of
-                  Assistant Professor of Computer Science, Dr. Sarah Schoemann.
-                </p>
-                <p>
-                  In Dolly’s World, players enter the surreal setting of a fictional 1990s/early 2000s children’s
-                  television show inspired by the strange and kitschy aesthetics of programs such as Pee-Wee’s
-                  Playhouse. As players solve environmental puzzles, they uncover the story of Bee, a recent college
-                  graduate in a queer romantic relationship with her coworker, Jess. Through dialogue and exploration,
-                  players learn about class tensions within their relationship, unstable labor conditions at the
-                  fast-casual restaurant Krust Krafters, and suspicions of wage theft by their exploitative manager.
-                </p>
-                <p>
-                  Although video games have made strides toward more diverse representation in recent years,
-                  queer-centered narratives remain uncommon, particularly in VR titles. At the same time, rising
-                  income inequality and labor movements such as the Fight for $15 have renewed attention to worker
-                  rights in the service industry. Through sharing the story of Bee and Jess, Dolly’s World contributes
-                  to the growing body of independent games that use interactive media as a space for exploring themes
-                  of identity and class which reflect real world issues.
-                </p>
-              </div>
+              <p>
+                My focus in building Dolly’s World was on technical implementation and interactive design, particularly the claw machine and prize systems. 
+                I worked on how these systems would interact with players as they explored the environment and pursued achievements.
+                These systems were built to be flexible, allowing other developers to place them within designed spaces or anywhere in the world while still maintaining meaningful challenge, curiosity, and reward for the player.
+              </p>
 
-              <div class="role-block">
-                <div class="role-title">My Role on Dolly's World</div>
-                <ul class="role-list">
-                  <li>Owned implementation of interactive gameplay systems and puzzle logic in Unity for Oculus Quest.</li>
-                  <li>Collaborated with writers and researchers to translate narrative beats into concrete interactions and level flows.</li>
-                  <li>Iterated on environmental interactions, player guidance, and usability in VR from playtest feedback.</li>
-                  <li>Supported debugging, profiling, and deployment builds for research demonstrations and internal milestones.</li>
-                </ul>
+              <div class="meta-list">
+                <div>
+                  <div class="meta-item-label">Role</div>
+                  <div class="meta-item-value">
+                    Technical Game Designer | Gameplay Programmer | VR Interaction Designer
+                  </div>
+                </div>
+                <div>
+                  <div class="meta-item-label">Key Contributions</div>
+                  <div class="meta-item-value">
+                    Implemented the claw machine interaction and prize reward systems in Unity, including interaction logic and reward behavior. 
+                    Contributed to the design of how these systems tie into player progression, achievements, and exploration within the VR experience.
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="two-column-stack">
               <div class="media-card">
-                <div class="media-title">Project Video</div>
+                <div class="media-title">Technical Systems Demo</div>
                 <div class="video-frame">
                   <iframe
                     src="VR_VIDEO_LINK"
@@ -754,19 +896,18 @@
                 </div>
               </div>
 
-              <div class="media-card">
-                <div class="media-title">Additional Footage & Artifacts</div>
+              <div>
+                <div class="media-title">Screenshots</div>
                 <div class="screenshot-grid">
                   <div class="screenshot">
-                    Add capture of a key interactive scene or puzzle you implemented.
+                    <img src="Images/DW1.png" alt="Dolly's World VR screenshot 1">
                   </div>
                   <div class="screenshot">
-                    Add a still showing the stylized Dolly’s World set or environment.
+                    <img src="Images/DW2.png" alt="Dolly's World VR screenshot 2">
                   </div>
-                </div>
-                <div class="media-subtext">
-                  Use this area for more embedded videos, GIFs, or images that showcase your specific
-                  contributions (systems, interactions, or UX improvements).
+                  <div class="screenshot">
+                    <img src="Images/DW3.png" alt="Dolly's World VR screenshot 3">
+                  </div>
                 </div>
               </div>
             </div>
@@ -777,7 +918,6 @@
       <section id="resume" class="section">
         <div class="section-header">
           <div class="section-title">Resume</div>
-          <div class="section-kicker">Snapshot</div>
         </div>
         <div class="section-body">
           <p>
@@ -785,7 +925,6 @@
           </p>
           <div class="link-row">
             <a class="btn secondary" href="resume.pdf" target="_blank" rel="noreferrer">
-              <span class="btn-icon">⬇</span>
               <span>Download Resume (PDF)</span>
             </a>
           </div>
@@ -793,14 +932,13 @@
             <div>
               <div class="meta-item-label">Core Skills</div>
               <div class="meta-item-value">
-                Unity (2D & VR), C#, technical game design, level/encounter design, gameplay systems, rapid prototyping.
+                Unity (2D & VR), C#, technical game design, level/encounter design, gameplay systems, agile/scrum development.
               </div>
             </div>
             <div>
               <div class="meta-item-label">Looking For</div>
               <div class="meta-item-value">
-                Technical Game Designer, Game/Level Designer, Gameplay Programmer roles on teams that value iteration,
-                collaboration, and player-focused design.
+                Gameplay Programmer, Level Designer, or Technical Game Designer roles, but I’m open to any opportunities that allow me to grow as a developer.
               </div>
             </div>
           </div>
@@ -816,10 +954,104 @@
       Cooper Jones
     </footer>
   </div>
+
+  <div class="image-lightbox-backdrop" id="image-lightbox" aria-modal="true" role="dialog">
+    <button type="button" class="image-lightbox-button image-lightbox-prev" data-direction="prev" aria-label="Previous image">‹</button>
+    <div class="image-lightbox-content">
+      <img src="" alt="Expanded screenshot">
+    </div>
+    <button type="button" class="image-lightbox-button image-lightbox-next" data-direction="next" aria-label="Next image">›</button>
+  </div>
+
   <script>
     window.addEventListener('load', function () {
       window.scrollTo(0, 0);
     });
+
+    (function () {
+      var lightbox = document.getElementById('image-lightbox');
+      if (!lightbox) return;
+
+      var lightboxImg = lightbox.querySelector('img');
+      var navButtons = lightbox.querySelectorAll('.image-lightbox-button');
+      var allImages = [];
+      var currentIndex = -1;
+
+      function collectImages() {
+        var imgs = document.querySelectorAll('img');
+        allImages = [];
+        imgs.forEach(function (img) {
+          if (!lightbox.contains(img)) {
+            allImages.push(img);
+          }
+        });
+      }
+
+      function openLightboxAt(index) {
+        if (index < 0 || index >= allImages.length) return;
+        var img = allImages[index];
+        var src = img.getAttribute('src');
+        if (!src) return;
+        currentIndex = index;
+        lightboxImg.src = src;
+        lightboxImg.alt = img.getAttribute('alt') || 'Expanded screenshot';
+        lightbox.classList.add('is-visible');
+        document.body.classList.add('is-lightbox-open');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-visible');
+        document.body.classList.remove('is-lightbox-open');
+        currentIndex = -1;
+      }
+
+      function showNext(delta) {
+        if (currentIndex < 0 || allImages.length === 0) return;
+        var nextIndex = (currentIndex + delta + allImages.length) % allImages.length;
+        openLightboxAt(nextIndex);
+      }
+
+      collectImages();
+
+      document.addEventListener('click', function (event) {
+        var target = event.target;
+        if (target && target.tagName === 'IMG' && !lightbox.contains(target)) {
+          var index = allImages.indexOf(target);
+          if (index !== -1) {
+            openLightboxAt(index);
+          }
+        }
+      });
+
+      lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      navButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.stopPropagation();
+          var dir = button.getAttribute('data-direction');
+          if (dir === 'prev') {
+            showNext(-1);
+          } else if (dir === 'next') {
+            showNext(1);
+          }
+        });
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (!lightbox.classList.contains('is-visible')) return;
+        if (event.key === 'Escape') {
+          closeLightbox();
+        } else if (event.key === 'ArrowRight') {
+          showNext(1);
+        } else if (event.key === 'ArrowLeft') {
+          showNext(-1);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
