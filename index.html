@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooper Jones | Technical Game Designer & Gameplay Programmer</title>
+  <style>
+    :root {
+      --bg: #f7f5f0;           /* off white */
+      --bg-elevated: #ffffff;
+      --accent: #222325;       /* charcoal */
+      --accent-soft: rgba(34, 35, 37, 0.06);
+      --text: #222325;
+      --text-muted: #5f6064;
+      --border-subtle: #d5d4cf;
+      --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.08);
+      --radius-lg: 0;
+      --radius-md: 0;
+      --radius-pill: 0;
+      --transition-fast: 0.18s ease-out;
+      --max-width: 1280px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Reset all box sizing and margin/padding */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px 40px;
+      background: #222325;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      width: 100%;
+      display: grid;
+      gap: 20px;
+      align-items: center;
+      max-height: calc(100vh - 70px);
+    }
+
+    @media (min-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.3fr);
+      }
+    }
+
+    .hero-text-heading {
+      margin-bottom: 10px;
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #f7f5f0;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: rgba(247, 245, 240, 0.8);
+      margin-top: 4px;
+    }
+
+    .hero-copy {
+      margin-top: 12px;
+      font-size: 0.96rem;
+      color: rgba(247, 245, 240, 0.86);
+    }
+
+    .hero-arrow {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      text-decoration: none;
+      color: #f7f5f0;
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 36px;
+      border-radius: 4px;
+      border: 1px solid rgba(247, 245, 240, 0.45);
+      background: rgba(247, 245, 240, 0.04);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      transition: background var(--transition-fast), transform var(--transition-fast),
+                  box-shadow var(--transition-fast);
+    }
+
+    .hero-arrow:hover {
+      background: rgba(247, 245, 240, 0.12);
+      transform: translate(-50%, -3px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+    }
+
+    .site-header {
+      background: #222325;
+      color: #f7f5f0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      margin-bottom: 24px;
+    }
+
+    .site-header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    @media (min-width: 800px) {
+      .site-header-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .identity {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .name {
+      font-size: clamp(2.1rem, 3vw, 2.4rem);
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: #000000;
+    }
+
+    .tagline span {
+      padding: 5px 12px;
+      border-radius: 0;
+      background: #e9e7e0;
+      border: 2px solid #000000;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.86rem;
+      color: #000000;
+      padding: 6px 14px;
+      border-radius: 0;
+      border: 2px solid #000000;
+      background: #e9e7e0;
+      transition: background var(--transition-fast), color var(--transition-fast),
+                  border-color var(--transition-fast), transform var(--transition-fast),
+                  box-shadow var(--transition-fast);
+    }
+
+    nav a:hover {
+      color: #000000;
+      border-color: #000000;
+      background: #f3f1ea;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .section {
+      border-radius: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 22px 24px;
+    }
+
+    @media (min-width: 900px) {
+      .section {
+        padding: 26px 26px 28px;
+      }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-kicker {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+    }
+
+    .section-body {
+      margin-top: 8px;
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    .home-layout {
+      display: grid;
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 900px) {
+      .home-layout {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      }
+    }
+
+    .home-images {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .home-image-block {
+      width: 100%;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .home-image-block img {
+      display: block;
+      max-width: 100%;
+      max-height: 32vh;
+      width: auto;
+      height: auto;
+      border: 2px solid #ffffff;
+    }
+
+    .home-text {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border-radius: 0;
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
+      color: var(--text-muted);
+    }
+
+    .pill.secondary {
+      background: #f2f3f7;
+      color: var(--text-muted);
+    }
+
+    .hero .meta-item-label {
+      color: rgba(247, 245, 240, 0.82);
+    }
+
+    .hero .pill,
+    .hero .pill.secondary {
+      background: #e9e7e0;
+      color: #000000;
+      border: 2px solid #000000;
+    }
+
+    .project-section {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    @media (min-width: 900px) {
+      .project-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.3fr);
+        gap: 24px;
+        align-items: flex-start;
+      }
+    }
+
+    .project-meta h2 {
+      font-size: 1.4rem;
+      margin: 0 0 6px;
+    }
+
+    .project-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .project-tagline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .meta-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin: 14px 0 8px;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 700px) {
+      .meta-list {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    .meta-item-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .meta-item-value {
+      color: var(--text);
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 0;
+      border: 1px solid rgba(35, 86, 162, 0.4);
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background var(--transition-fast), transform var(--transition-fast),
+                  box-shadow var(--transition-fast);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: #f3f5fb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn.secondary {
+      border-color: var(--border-subtle);
+      background: #f3f4f8;
+      box-shadow: none;
+      color: var(--text-muted);
+    }
+
+    .btn.secondary:hover {
+      color: var(--accent);
+      border-color: rgba(35, 86, 162, 0.4);
+    }
+
+    .btn-icon {
+      font-size: 0.95em;
+    }
+
+    .media-card {
+      border-radius: 0;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 12px 12px 14px;
+    }
+
+    .media-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 0;
+      overflow: hidden;
+      background: #000000;
+      box-shadow: none;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .media-subtext {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .screenshot {
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: #f6f7fb;
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .role-block {
+      border-radius: 0;
+      border: 1px solid var(--border-subtle);
+      background: #f7f8fc;
+      padding: 14px 14px 12px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .role-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .role-list {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .role-list li {
+      margin-bottom: 4px;
+    }
+
+    .rich-text p {
+      margin: 0 0 8px;
+    }
+
+    .rich-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .two-column-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .two-column-stack {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr);
+      }
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body>
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <div class="home-text">
+        <div class="hero-text-heading">
+          <div class="hero-name">Cooper Jones</div>
+          <div class="hero-subtitle">Technical Game & Level Designer · Gameplay Programmer</div>
+        </div>
+        <div class="hero-copy">
+          <p>
+            I design and implement moment-to-moment gameplay: building systems in Unity, blocking out levels,
+            tuning feel, and collaborating on narrative so mechanics, spaces, and story all support the same goals.
+          </p>
+          <p>
+            I’m currently looking for roles as a <strong>Technical Game Designer</strong>, <strong>Game/Level Designer</strong>,
+            or <strong>Gameplay Programmer</strong>. I enjoy working close to the engine—iterating on mechanics,
+            scripting encounters, and shaping spaces that guide players intuitively through an experience.
+          </p>
+          <div class="meta-item-label">Focus Areas</div>
+          <div class="pill-list">
+            <div class="pill">Technical Game Design</div>
+            <div class="pill secondary">Level & Encounter Design</div>
+            <div class="pill secondary">Gameplay Programming</div>
+            <div class="pill secondary">Unity · C#</div>
+            <div class="pill secondary">VR / XR</div>
+          </div>
+        </div>
+      </div>
+      <div class="home-images">
+        <div class="home-image-block">
+          <img src="Images/Hero1.png" alt="Don't Stop Climbing gameplay screenshot">
+        </div>
+        <div class="home-image-block">
+          <img src="Images/Hero2.png" alt="Don't Stop Climbing gameplay screenshot">
+        </div>
+      </div>
+    </div>
+    <a href="#main-content" class="hero-arrow" aria-label="Scroll to content">⌄</a>
+  </section>
+
+  <div id="main-content" class="page">
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="identity">
+          <div class="name">Cooper Jones</div>
+          <div class="tagline">
+            <span>Technical Game & Level Designer · Gameplay Programmer</span>
+          </div>
+        </div>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#projects">Projects</a>
+          <a href="#resume">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="projects" class="section project-section">
+        <div class="section-header">
+          <div class="section-title">Projects</div>
+        </div>
+        <div class="section-body" style="display: flex; flex-direction: column; gap: 40px;">
+          <div class="project-layout" id="dont-stop-climbing">
+            <div class="project-meta">
+              <div class="project-label">2D Narrative Platformer</div>
+              <h2>Don't Stop Climbing</h2>
+              <div class="project-tagline">
+                A 2D narrative platformer about persistence, self-doubt, and pushing through psychological obstacles.
+              </div>
+              <p>
+                I treated this project as a playground for technical design and level design: prototyping movement and
+                jump arcs, scripting interactions, and iterating on vertical layouts that reinforce the emotional arc
+                of “climbing” both physically and psychologically.
+              </p>
+
+              <div class="meta-list">
+                <div>
+                  <div class="meta-item-label">Role</div>
+                  <div class="meta-item-value">Technical Game Designer · Gameplay Programmer · Level Designer</div>
+                </div>
+                <div>
+                  <div class="meta-item-label">Key Contributions</div>
+                  <div class="meta-item-value">
+                    Player controller and movement tuning, authored level greyboxes and final passes,
+                    scripted narrative triggers and pacing, and defined onboarding/UX flow.
+                  </div>
+                </div>
+              </div>
+
+              <div class="link-row">
+                <a class="btn" href="build.zip">
+                  <span class="btn-icon">⬇</span>
+                  <span>Download Playable Build</span>
+                </a>
+                <a class="btn secondary" href="design_doc.pdf" target="_blank" rel="noreferrer">
+                  <span class="btn-icon">📄</span>
+                  <span>View Design Documentation</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="two-column-stack">
+              <div class="media-card">
+                <div class="media-title">Gameplay Overview</div>
+                <div class="video-frame">
+                  <iframe
+                    src="YOUTUBE_LINK"
+                    title="Don't Stop Climbing Gameplay"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="media-subtext">
+                  Capture of a representative climb sequence, showcasing movement feel, environmental storytelling,
+                  and progression pacing.
+                </div>
+              </div>
+
+              <div>
+                <div class="media-title">Screenshots & Layouts</div>
+                <div class="screenshot-grid">
+                  <div class="screenshot">
+                    Add a key moment screenshot here (e.g., mid-climb set piece).
+                  </div>
+                  <div class="screenshot">
+                    Add an image showing level layout or greybox-to-final comparison.
+                  </div>
+                  <div class="screenshot">
+                    Add UI or narrative moment capture that highlights player feedback.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-layout" id="dollys-world">
+            <div class="project-meta">
+              <div class="project-label">Research VR Experience</div>
+              <h2>Dolly's World</h2>
+              <div class="project-tagline">
+                An escape-room-style VR game exploring queer relationships, labor, and class through surreal
+                children’s television aesthetics.
+              </div>
+
+              <div class="rich-text">
+                <p>
+                  Dolly’s World is an escape-room-style virtual reality game developed in Unity for the Oculus Quest
+                  by undergraduate researchers in the Computer Science and English Departments under the mentorship of
+                  Assistant Professor of Computer Science, Dr. Sarah Schoemann.
+                </p>
+                <p>
+                  In Dolly’s World, players enter the surreal setting of a fictional 1990s/early 2000s children’s
+                  television show inspired by the strange and kitschy aesthetics of programs such as Pee-Wee’s
+                  Playhouse. As players solve environmental puzzles, they uncover the story of Bee, a recent college
+                  graduate in a queer romantic relationship with her coworker, Jess. Through dialogue and exploration,
+                  players learn about class tensions within their relationship, unstable labor conditions at the
+                  fast-casual restaurant Krust Krafters, and suspicions of wage theft by their exploitative manager.
+                </p>
+                <p>
+                  Although video games have made strides toward more diverse representation in recent years,
+                  queer-centered narratives remain uncommon, particularly in VR titles. At the same time, rising
+                  income inequality and labor movements such as the Fight for $15 have renewed attention to worker
+                  rights in the service industry. Through sharing the story of Bee and Jess, Dolly’s World contributes
+                  to the growing body of independent games that use interactive media as a space for exploring themes
+                  of identity and class which reflect real world issues.
+                </p>
+              </div>
+
+              <div class="role-block">
+                <div class="role-title">My Role on Dolly's World</div>
+                <ul class="role-list">
+                  <li>Owned implementation of interactive gameplay systems and puzzle logic in Unity for Oculus Quest.</li>
+                  <li>Collaborated with writers and researchers to translate narrative beats into concrete interactions and level flows.</li>
+                  <li>Iterated on environmental interactions, player guidance, and usability in VR from playtest feedback.</li>
+                  <li>Supported debugging, profiling, and deployment builds for research demonstrations and internal milestones.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="two-column-stack">
+              <div class="media-card">
+                <div class="media-title">Project Video</div>
+                <div class="video-frame">
+                  <iframe
+                    src="VR_VIDEO_LINK"
+                    title="Dolly's World VR Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="media-subtext">
+                  Embed a walkthrough or research presentation video highlighting the spaces, interactions,
+                  and narrative beats you contributed to.
+                </div>
+              </div>
+
+              <div class="media-card">
+                <div class="media-title">Additional Footage & Artifacts</div>
+                <div class="screenshot-grid">
+                  <div class="screenshot">
+                    Add capture of a key interactive scene or puzzle you implemented.
+                  </div>
+                  <div class="screenshot">
+                    Add a still showing the stylized Dolly’s World set or environment.
+                  </div>
+                </div>
+                <div class="media-subtext">
+                  Use this area for more embedded videos, GIFs, or images that showcase your specific
+                  contributions (systems, interactions, or UX improvements).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resume" class="section">
+        <div class="section-header">
+          <div class="section-title">Resume</div>
+          <div class="section-kicker">Snapshot</div>
+        </div>
+        <div class="section-body">
+          <p>
+            This section is a quick overview of what’s on my resume. For full details, you can also download a PDF.
+          </p>
+          <div class="link-row">
+            <a class="btn secondary" href="resume.pdf" target="_blank" rel="noreferrer">
+              <span class="btn-icon">⬇</span>
+              <span>Download Resume (PDF)</span>
+            </a>
+          </div>
+          <div class="meta-list" style="margin-top:16px;">
+            <div>
+              <div class="meta-item-label">Core Skills</div>
+              <div class="meta-item-value">
+                Unity (2D & VR), C#, technical game design, level/encounter design, gameplay systems, rapid prototyping.
+              </div>
+            </div>
+            <div>
+              <div class="meta-item-label">Looking For</div>
+              <div class="meta-item-value">
+                Technical Game Designer, Game/Level Designer, Gameplay Programmer roles on teams that value iteration,
+                collaboration, and player-focused design.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      ©
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      Cooper Jones
+    </footer>
+  </div>
+  <script>
+    window.addEventListener('load', function () {
+      window.scrollTo(0, 0);
+    });
+  </script>
+</body>
+</html>
