@@ -504,6 +504,45 @@ ul {
   color: var(--text);
 }
 
+/* Tighter stack when there is no intro copy under the title (e.g. home Skills Snapshot) */
+.section-head--compact {
+  gap: 0.2rem;
+  margin-bottom: clamp(0.45rem, 1.2vw, 0.75rem);
+}
+
+.section-head--compact h2 {
+  margin-bottom: 0;
+}
+
+/* About page — prose blocks separated by light rules (no cards) */
+.about-sections {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-section {
+  padding: clamp(1.35rem, 3.5vw, 2rem) 0;
+}
+
+.about-section:first-child {
+  padding-top: 0;
+}
+
+.about-section + .about-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.about-section h2 {
+  color: var(--text);
+  margin-top: 0;
+}
+
+.about-timeline {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: clamp(1.5rem, 4vw, 2.25rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
 /* Cards */
 .card-grid {
   display: grid;

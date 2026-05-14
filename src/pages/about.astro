@@ -1,7 +1,6 @@
 ---
 import Layout from "../components/Layout.astro";
 import { experience } from "../data/experience";
-import { skillGroups } from "../data/skills";
 ---
 
 <Layout
@@ -10,75 +9,57 @@ import { skillGroups } from "../data/skills";
 >
   <div class="container page-title">
     <p class="kicker">About</p>
-    <h1>Biography & focus</h1>
+    <h1>Biography & Focus</h1>
     <p class="muted" style="max-width:70ch;">
-      I split time between shipping software and building interactive experiences. The through-line
-      is systems thinking: make the constraints explicit, prototype fast, and polish until players
-      or users feel the intent without needing a manual.
+      I am a recent graduate from the College of Charleston with a B.A. in Game Development
+      and a minor in Computer Science. I work across software engineering and game development 
+      with a focus on building systems that feel clear, responsive, and intentional. Whether 
+      developing gameplay, tools, or web applications, I care about maintainability, iteration speed,
+      and creating experiences that feel intuitive to use.
     </p>
   </div>
 
   <section class="page-section" style="padding-top:0">
-    <div class="container stack-lg">
-      <div class="card">
-        <h2>Professional summary</h2>
-        <p>
-          I am a software engineer and game developer with deep experience in Unity (2D and VR),
-          gameplay programming, and technical design. I enjoy owning features from whiteboard to
-          release: clarifying requirements, implementing readable C# or TypeScript, and validating
-          with playtests or user feedback loops.
-        </p>
-        <p>
-          I am targeting roles across gameplay programming, Unity development, technical design, and
-          software engineering teams that value craft, communication, and iterative delivery.
-        </p>
+    <div class="container">
+      <div class="about-sections">
+        <section class="about-section" aria-labelledby="about-summary-heading">
+          <h2 id="about-summary-heading">Professional Summary</h2>
+          <p>
+            I am a software engineer and game developer with deep experience in Unity,
+            gameplay programming, and technical design. I enjoy owning features from whiteboard to
+            release: clarifying requirements, implementing readable C# or TypeScript, and validating
+            with playtests or user feedback.
+          </p>
+          <p>
+            My background spans gameplay systems, technical design, frontend/backend development, and
+            interactive tools, with an emphasis on practical problem solving and user-focused design.
+          </p>
+        </section>
+
+        <section class="about-section" aria-labelledby="about-tech-heading">
+          <h2 id="about-tech-heading">Technical Interests</h2>
+          <ul>
+            <li>Gameplay systems with responsive controls and readable player feedback</li>
+            <li>Developer tools and workflows that improve iteration speed and usability</li>
+            <li>Accessible, performant web experiences with clean frontend architecture</li>
+            <li>Designing interactive experiences that feel intuitive, engaging, and rewarding to explore</li>
+          </ul>
+        </section>
+
+        <section class="about-section" aria-labelledby="about-goals-heading">
+          <h2 id="about-goals-heading">Career Goals</h2>
+          <p>
+            I am seeking opportunities where I can continue growing as both an engineer and
+            interactive developer while contributing to collaborative teams building games,
+            tools, or user-focused software products.
+          </p>
+        </section>
       </div>
 
-      <div class="card">
-        <h2>Technical interests</h2>
-        <ul>
-          <li>Deterministic-feeling controls and encounter readability</li>
-          <li>Authoring tools that let designers move faster without sacrificing safety checks</li>
-          <li>Static-first web delivery with strong accessibility and SEO hygiene</li>
-          <li>XR interactions that respect comfort, affordance, and failure states</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Career goals</h2>
-        <p>
-          Join a team where I can alternate between hands-on engineering and collaborative design
-          conversations — shipping features weekly, mentoring where helpful, and learning adjacent
-          stacks (rendering, networking, build systems) as the product demands.
-        </p>
-      </div>
-
-      <div>
+      <div class="about-timeline">
         <header class="section-head">
-          <p class="kicker">Stack</p>
-          <h2>Technologies & tools</h2>
-        </header>
-        <div class="skill-grid">
-          {
-            skillGroups.map((g) => (
-              <div class="skill-block">
-                <h3>{g.title}</h3>
-                <ul>
-                  {g.items.map((i) => (
-                    <li>{i}</li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div>
-        <header class="section-head">
-          <p class="kicker">Timeline</p>
-          <h2>Experience overview</h2>
-          <p>High-level arcs — swap in specific employers or academic milestones as you update the site.</p>
+          <p class="kicker">My Journey so Far</p>
+          <h2>Experience Overview</h2>
         </header>
         <div class="timeline">
           {

@@ -11,27 +11,30 @@ export type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     id: "swe-focus",
-    title: "Software engineering focus",
-    org: "Personal & academic projects",
+    title: "Software Engineering & Interactive Systems",
+    org: "Personal, Academic, & Collaborative Projects",
     period: "Ongoing",
     summary:
-      "Building reliable tools, gameplay systems, and web experiences with an emphasis on clarity, performance, and maintainability.",
+      "Developing full-stack applications, AI-assisted tools, and interactive systems with a focus on usability, maintainability, and practical problem solving.",
     highlights: [
-      "Static sites and small full-stack utilities",
-      "Unity/C# gameplay and interaction systems",
-      "Collaboration using Git and iterative delivery",
+      "Collaborated on an AI-powered stylist platform for a Charleston small business, contributing to both frontend and backend development",
+      "Built an iOS-focused fitness tracking GitHub Pages application to organize workouts and improve personal consistency",
+      "Developed an email management web application integrating Outlook and Gmail accounts with Ollama and RAG pipelines for inbox organization and AI-generated summaries",
+      "Experience using AI-assisted development workflows for rapid prototyping, debugging, iteration, and feature implementation",
     ],
   },
+
   {
     id: "games-focus",
-    title: "Game development & technical design",
-    org: "Solo and team projects",
+    title: "Game Development & Technical Design",
+    org: "Solo and Collaborative Projects",
     period: "Ongoing",
     summary:
-      "Shipped playable experiences end-to-end: mechanics, level flow, onboarding, and technical implementation in Unity (2D and VR).",
+      "Designing and developing interactive gameplay experiences in Unity with a focus on player interaction, technical systems, and iterative development.",
     highlights: [
-      "Solo 2D platformer: systems, levels, narrative triggers",
-      "VR research build: interaction and reward systems",
+      "Developed gameplay systems, level flow, and narrative-driven interactions for solo 2D platformer projects",
+      "Built VR interaction prototypes and gameplay systems through collaborative research and development work",
+      "Experience balancing technical implementation with player experience, usability, and iteration through testing",
     ],
   },
 ];
