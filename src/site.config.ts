@@ -28,7 +28,7 @@ export const resumes = [
     id: "games" as const,
     label: "Game development",
     shortLabel: "Games",
-    blurb: "Tailored for gameplay programming, Unity, technical design, and VR/XR roles.",
+    blurb: "Tailored for gameplay programming, Unity, technical design, and game design roles.",
     file: "Documents/Minor Jones Resume Game Designer.pdf",
   },
 ] as const;

@@ -10,9 +10,9 @@
   --text-muted: #a7a8b0;
   --accent: #e8c547;
   --accent-soft: rgba(232, 197, 71, 0.14);
-  --radius-lg: 14px;
-  --radius-md: 10px;
-  --radius-pill: 999px;
+  --radius-lg: 0;
+  --radius-md: 0;
+  --radius-pill: 0;
   --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.45);
   --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
   --max: 1120px;
@@ -310,7 +310,7 @@ ul {
   min-height: min(100vh, 900px);
   display: grid;
   align-items: center;
-  padding: clamp(32px, 6vw, 72px) 0 48px;
+  padding: clamp(32px, 6vw, 72px) 0 clamp(28px, 5vw, 40px);
   position: relative;
   overflow: clip;
 }
@@ -395,11 +395,13 @@ ul {
   object-fit: cover;
 }
 
+/* Fixed so it stays in the first viewport even when hero content is tall */
 .scroll-hint {
-  position: absolute;
+  position: fixed;
   left: 50%;
-  bottom: 18px;
+  bottom: max(5.75rem, calc(env(safe-area-inset-bottom, 0px) + 4.5rem));
   transform: translateX(-50%);
+  z-index: 25;
   color: var(--text-muted);
   font-size: 1.35rem;
   text-decoration: none;
@@ -409,11 +411,28 @@ ul {
   display: grid;
   place-items: center;
   border-radius: var(--radius-md);
-  background: rgba(12, 12, 15, 0.55);
+  background: rgba(12, 12, 15, 0.72);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: opacity var(--dur) var(--ease-out), visibility var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
 }
 
 .scroll-hint:hover {
   color: var(--accent);
+}
+
+.scroll-hint.scroll-hint--away {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint.scroll-hint--away {
+    transform: translateX(-50%);
+  }
 }
 
 /* Buttons */

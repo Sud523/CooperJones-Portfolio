@@ -1,8 +1,6 @@
 ---
 import Layout from "../components/Layout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import { asset } from "../lib/paths";
-import { featuredProjects } from "../data/projects";
 import { skillGroups } from "../data/skills";
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
@@ -18,9 +16,9 @@ const description =
         <p class="kicker">Portfolio</p>
         <h1>Software engineer &<br /> game developer</h1>
         <p class="hero-lead">
-          I build reliable software and player-first interactive systems — from Unity gameplay and
-          VR interactions to lightweight, accessible web experiences. Comfortable owning features
-          end-to-end: design intent, implementation, and delivery.
+          I build reliable software and player-focused interactive systems across Unity, VR, and
+          web platforms. Experienced developing features end-to-end, from gameplay and 
+          interaction design to implementation, debugging, and delivery.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href={`${base}software.html#projects`}>View projects</a>
@@ -33,9 +31,10 @@ const description =
             <span class="pill">C#</span>
             <span class="pill">TypeScript</span>
             <span class="pill">Unity</span>
-            <span class="pill">Gameplay systems</span>
+            <span class="pill">Gameplay Systems</span>
             <span class="pill">VR / XR</span>
-            <span class="pill">Web performance</span>
+            <span class="pill">Web Performance</span>
+            <span class="pill">AI-Assisted Development</span>
           </div>
         </div>
       </div>
@@ -55,34 +54,35 @@ const description =
     <div class="container">
       <header class="section-head">
         <p class="kicker">How I work</p>
-        <h2>Two disciplines, one bar for quality</h2>
+        <h2>Two disciplines, one standard</h2>
         <p>
-          Whether shipping software or game experiences, I care about clarity, performance, and
-          the next teammate who reads the code or plays the build.
+          Whether building software or game experiences, I focus on clarity, performance,
+          and maintainability for both the people using the product and the people working on it.
         </p>
       </header>
       <div class="card-grid cols-3">
         <article class="card track-card">
           <h3>Software engineering</h3>
           <p>
-            Typed, testable systems; APIs and tooling; documentation that earns trust. I like small,
-            fast surfaces that stay maintainable as scope grows.
+            Building reliable applications, tools, and systems with a focus on readability,
+            maintainability, and practical problem solving. Comfortable working across frontend,
+            backend, and feature implementation.
           </p>
           <a class="card-link" href={`${base}software.html`}>Explore software work →</a>
         </article>
         <article class="card track-card">
           <h3>Game development</h3>
           <p>
-            Unity gameplay, level flow, onboarding, and technical design. I prototype quickly,
-            iterate with playtests, and keep systems legible for collaborators.
+            Developing gameplay systems, level flow, and interactive mechanics in Unity with an
+            emphasis on player experience, iteration, and clean technical foundations.
           </p>
           <a class="card-link" href={`${base}games.html`}>Explore game work →</a>
         </article>
         <article class="card track-card">
           <h3>Technical design</h3>
           <p>
-            Translating creative goals into constraints engineers can implement — encounter pacing,
-            interaction affordances, and measurable player outcomes.
+            Bridging creative direction and implementation by turning design goals into structured,
+            testable systems that support both player experience and development workflows.
           </p>
           <a class="card-link" href={`${base}about.html`}>Read background →</a>
         </article>
@@ -95,7 +95,6 @@ const description =
       <header class="section-head">
         <p class="kicker">Toolkit</p>
         <h2>Featured technologies</h2>
-        <p>Grouped for recruiter scanning — happy to dive deeper on any line item in conversation.</p>
       </header>
       <div class="skill-grid">
         {
@@ -114,23 +113,15 @@ const description =
     </div>
   </section>
 
-  <section class="page-section">
-    <div class="container">
-      <header class="section-head">
-        <p class="kicker">Highlights</p>
-        <h2>Featured projects</h2>
-        <p>A mixed slice across engineering and game work — each card links out to demos, docs, or source where available.</p>
-      </header>
-      <div class="project-grid">
-        {featuredProjects().map((p) => (
-          <ProjectCard project={p} />
-        ))}
-      </div>
-      <p class="muted" style="margin-top:1rem;">
-        <a href={`${base}software.html`}>Software engineering portfolio</a>
-        ·
-        <a href={`${base}games.html`}>Game development portfolio</a>
-      </p>
-    </div>
-  </section>
+  <script is:inline>
+    (function () {
+      var el = document.querySelector("a.scroll-hint");
+      if (!el) return;
+      function upd() {
+        el.classList.toggle("scroll-hint--away", (window.scrollY || 0) > 40);
+      }
+      window.addEventListener("scroll", upd, { passive: true });
+      upd();
+    })();
+  </script>
 </Layout>
