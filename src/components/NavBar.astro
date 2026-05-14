@@ -1,0 +1,108 @@
+---
+const baseRaw = import.meta.env.BASE_URL;
+const base = baseRaw.replace(/\/?$/, "/");
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const baseNoSlash = base.replace(/\/$/, "");
+const stripped =
+  baseNoSlash && path.startsWith(baseNoSlash)
+    ? path.slice(baseNoSlash.length) || "/"
+    : path;
+
+const isHome =
+  stripped === "/" ||
+  stripped === "" ||
+  stripped === "/index.html" ||
+  stripped.endsWith("/index.html");
+
+function match(suffix: string) {
+  if (suffix === "home") return isHome;
+  return stripped.endsWith(suffix);
+}
+
+const links = [
+  { href: `${base}`, label: "Home", key: "home" as const },
+  { href: `${base}about.html`, label: "About", key: "about.html" as const },
+  { href: `${base}software.html`, label: "Software", key: "software.html" as const },
+  { href: `${base}games.html`, label: "Games", key: "games.html" as const },
+  { href: `${base}resume.html`, label: "Resume", key: "resume.html" as const },
+  { href: `${base}contact.html`, label: "Contact", key: "contact.html" as const },
+];
+
+const { variant = "default" } = Astro.props as { variant?: "home" | "default" };
+---
+
+<header class:list={["site-nav", variant === "home" && "is-home-top"]} data-nav-root>
+  <div class="site-nav-inner">
+    <a class="brand" href={base} data-close-drawer>
+      <span class="brand-name">Cooper Jones</span>
+      <span class="brand-role">Software engineer & game developer</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={match(l.key) ? "page" : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-expanded="false"
+      aria-controls="nav-drawer"
+      data-nav-toggle
+    >
+      <span class="sr-only">Menu</span>
+      ☰
+    </button>
+    <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile primary">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={match(l.key) ? "page" : undefined} data-close-drawer>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector("[data-nav-root]");
+    if (!root) return;
+    var toggle = root.querySelector("[data-nav-toggle]");
+
+    function onScroll() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      if (y > 12) root.classList.add("is-scrolled");
+      else root.classList.remove("is-scrolled");
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    function setOpen(open) {
+      root.classList.toggle("is-open", open);
+      if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        var open = !root.classList.contains("is-open");
+        setOpen(open);
+      });
+    }
+
+    root.querySelectorAll("[data-close-drawer]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        return setOpen(false);
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setOpen(false);
+    });
+  })();
+</script>

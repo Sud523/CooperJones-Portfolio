@@ -1,0 +1,195 @@
+---
+import Layout from "../components/Layout.astro";
+import { asset } from "../lib/paths";
+import { resumes } from "../site.config";
+import { skillGroups } from "../data/skills";
+import { experience } from "../data/experience";
+
+const description =
+  "Two resumes for Cooper Jones — software engineering and game development — preview inline or download PDFs.";
+---
+
+<Layout title="Resume" {description}>
+  <div class="container page-title">
+    <p class="kicker">Resume</p>
+    <h1>Resume</h1>
+    <p class="muted" style="max-width:70ch;">
+      Choose the version that matches the role you are hiring for. Each PDF lives under{" "}
+      <code>public/Documents/</code> — update filenames in <code>src/site.config.ts</code> if yours differ.
+    </p>
+  </div>
+
+  <section class="page-section" style="padding-top:0">
+    <div class="container stack-lg" data-resume-page>
+      <div class="resume-tablist" role="tablist" aria-label="Resume version">
+        {
+          resumes.map((r, i) => (
+            <button
+              type="button"
+              class="resume-tab"
+              role="tab"
+              id={`tab-${r.id}`}
+              data-resume-tab={r.id}
+              aria-selected={i === 0 ? "true" : "false"}
+              aria-controls={`resume-panel-${r.id}`}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="resume-tab-title">{r.label}</span>
+              <span class="resume-tab-hint muted">{r.shortLabel}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      {
+        resumes.map((r, i) => {
+          const pdf = asset(r.file);
+          return (
+            <div
+              class="resume-panel stack-lg"
+              id={`resume-panel-${r.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${r.id}`}
+              hidden={i !== 0}
+              data-resume-panel={r.id}
+            >
+              <p class="muted" style="margin:0;">{r.blurb}</p>
+              <div class="contact-actions">
+                <a class="btn btn-primary" href={pdf} download>
+                  Download ({r.shortLabel})
+                </a>
+                <a class="btn btn-ghost" href={pdf} target="_blank" rel="noreferrer">
+                  Open in new tab
+                </a>
+              </div>
+              <iframe
+                class="resume-frame"
+                title={`${r.label} resume PDF`}
+                data-resume-iframe={r.id}
+                loading={i === 0 ? "eager" : "lazy"}
+                src={i === 0 ? `${pdf}#view=FitH` : undefined}
+                data-src={`${pdf}#view=FitH`}
+              />
+            </div>
+          );
+        })
+      }
+
+      <div class="card">
+        <h2>Skills snapshot</h2>
+        <p class="muted">
+          These sections are shared across both resumes; each PDF may emphasize different bullets.
+        </p>
+        <div class="skill-grid">
+          {
+            skillGroups.map((g) => (
+              <div class="skill-block">
+                <h3>{g.title}</h3>
+                <ul>
+                  {g.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <header class="section-head">
+          <p class="kicker">Timeline</p>
+          <h2>Experience highlights</h2>
+        </header>
+        <div class="timeline">
+          {
+            experience.map((e) => (
+              <article class="timeline-item">
+                <header>
+                  <h3>{e.title}</h3>
+                  <span class="period">{e.period}</span>
+                </header>
+                <p class="muted" style="margin:0;">
+                  <strong style="color:var(--text)">{e.org}</strong> — {e.summary}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var root = document.querySelector("[data-resume-page]");
+      if (!root) return;
+      var tabs = [].slice.call(root.querySelectorAll('[role="tab"][data-resume-tab]'));
+      var panels = {};
+      tabs.forEach(function (t) {
+        var id = t.getAttribute("data-resume-tab");
+        panels[id] = root.querySelector('[data-resume-panel="' + id + '"]');
+      });
+
+      function show(id) {
+        if (!panels[id]) id = "software";
+        tabs.forEach(function (tab) {
+          var tid = tab.getAttribute("data-resume-tab");
+          var sel = tid === id;
+          tab.setAttribute("aria-selected", sel ? "true" : "false");
+          tab.tabIndex = sel ? 0 : -1;
+        });
+        Object.keys(panels).forEach(function (key) {
+          var p = panels[key];
+          if (!p) return;
+          if (key === id) {
+            p.removeAttribute("hidden");
+            var iframe = p.querySelector("iframe[data-src]");
+            if (iframe && !iframe.getAttribute("src")) {
+              iframe.setAttribute("src", iframe.getAttribute("data-src") || "");
+            }
+          } else {
+            p.setAttribute("hidden", "");
+          }
+        });
+        try {
+          history.replaceState(null, "", "#" + id);
+        } catch (e) {}
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          show(tab.getAttribute("data-resume-tab"));
+          tab.focus();
+        });
+        tab.addEventListener("keydown", function (e) {
+          var idx = tabs.indexOf(tab);
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            var next = tabs[(idx + 1) % tabs.length];
+            show(next.getAttribute("data-resume-tab"));
+            next.focus();
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            var prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+            show(prev.getAttribute("data-resume-tab"));
+            prev.focus();
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            var first = tabs[0];
+            show(first.getAttribute("data-resume-tab"));
+            first.focus();
+          } else if (e.key === "End") {
+            e.preventDefault();
+            var last = tabs[tabs.length - 1];
+            show(last.getAttribute("data-resume-tab"));
+            last.focus();
+          }
+        });
+      });
+
+      var hash = (location.hash || "#software").replace("#", "");
+      show(panels[hash] ? hash : "software");
+    })();
+  </script>
+</Layout>

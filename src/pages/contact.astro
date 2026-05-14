@@ -1,0 +1,50 @@
+---
+import Layout from "../components/Layout.astro";
+import { person } from "../site.config";
+---
+
+<Layout
+  title="Contact"
+  description="Contact Cooper Jones — email, GitHub, LinkedIn, and itch.io links for software and game opportunities."
+>
+  <div class="container page-title">
+    <p class="kicker">Contact</p>
+    <h1>Let’s talk</h1>
+    <p class="muted" style="max-width:60ch;">
+      Reach out for software engineering, gameplay programming, Unity, or technical design roles.
+      I typically respond within a few business days.
+    </p>
+  </div>
+
+  <section class="page-section" style="padding-top:0">
+    <div class="container stack-lg">
+      <div class="card">
+        <h2>Direct</h2>
+        <p>
+          Email:
+          <a href={person.email}>{person.email.replace(/^mailto:/, "")}</a>
+        </p>
+        <p class="muted" style="margin:0;">
+          Update <code>src/site.config.ts</code> with your real address before publishing.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Profiles</h2>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href={person.github} target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn btn-ghost" href={person.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn btn-ghost" href={person.itch} target="_blank" rel="noreferrer">itch.io</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Optional form</h2>
+        <p>
+          GitHub Pages is static — wire a provider like Formspree or Google Forms if you want a
+          hosted form without a backend. Until then, email works great.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

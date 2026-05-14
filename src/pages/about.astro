@@ -1,0 +1,106 @@
+---
+import Layout from "../components/Layout.astro";
+import { experience } from "../data/experience";
+import { skillGroups } from "../data/skills";
+---
+
+<Layout
+  title="About"
+  description="Background, technical interests, and career direction for Cooper Jones — software engineer and game developer."
+>
+  <div class="container page-title">
+    <p class="kicker">About</p>
+    <h1>Biography & focus</h1>
+    <p class="muted" style="max-width:70ch;">
+      I split time between shipping software and building interactive experiences. The through-line
+      is systems thinking: make the constraints explicit, prototype fast, and polish until players
+      or users feel the intent without needing a manual.
+    </p>
+  </div>
+
+  <section class="page-section" style="padding-top:0">
+    <div class="container stack-lg">
+      <div class="card">
+        <h2>Professional summary</h2>
+        <p>
+          I am a software engineer and game developer with deep experience in Unity (2D and VR),
+          gameplay programming, and technical design. I enjoy owning features from whiteboard to
+          release: clarifying requirements, implementing readable C# or TypeScript, and validating
+          with playtests or user feedback loops.
+        </p>
+        <p>
+          I am targeting roles across gameplay programming, Unity development, technical design, and
+          software engineering teams that value craft, communication, and iterative delivery.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Technical interests</h2>
+        <ul>
+          <li>Deterministic-feeling controls and encounter readability</li>
+          <li>Authoring tools that let designers move faster without sacrificing safety checks</li>
+          <li>Static-first web delivery with strong accessibility and SEO hygiene</li>
+          <li>XR interactions that respect comfort, affordance, and failure states</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Career goals</h2>
+        <p>
+          Join a team where I can alternate between hands-on engineering and collaborative design
+          conversations — shipping features weekly, mentoring where helpful, and learning adjacent
+          stacks (rendering, networking, build systems) as the product demands.
+        </p>
+      </div>
+
+      <div>
+        <header class="section-head">
+          <p class="kicker">Stack</p>
+          <h2>Technologies & tools</h2>
+        </header>
+        <div class="skill-grid">
+          {
+            skillGroups.map((g) => (
+              <div class="skill-block">
+                <h3>{g.title}</h3>
+                <ul>
+                  {g.items.map((i) => (
+                    <li>{i}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <header class="section-head">
+          <p class="kicker">Timeline</p>
+          <h2>Experience overview</h2>
+          <p>High-level arcs — swap in specific employers or academic milestones as you update the site.</p>
+        </header>
+        <div class="timeline">
+          {
+            experience.map((e) => (
+              <article class="timeline-item">
+                <header>
+                  <h3>{e.title}</h3>
+                  <span class="period">{e.period}</span>
+                </header>
+                <p class="muted" style="margin:0 0 0.5rem;">
+                  <strong style="color:var(--text)">{e.org}</strong> — {e.summary}
+                </p>
+                <ul>
+                  {e.highlights.map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

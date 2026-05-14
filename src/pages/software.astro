@@ -1,0 +1,28 @@
+---
+import Layout from "../components/Layout.astro";
+import ProjectExplorer from "../components/ProjectExplorer.astro";
+import { projectsForTrack } from "../data/projects";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<Layout
+  title="Software engineering"
+  description="Software engineering projects by Cooper Jones — web, tools, and systems work with clear outcomes and links to demos or source."
+>
+  <div class="container page-title">
+    <p class="kicker">Software</p>
+    <h1>Software engineering</h1>
+    <p class="muted" style="max-width:70ch;">
+      Engineering-first project cards: problem framing, shipped outcomes, stack tags, and links to
+      source or live demos. Filters help recruiters match technologies quickly.{" "}
+      <a href={`${base}resume.html#software`}>Software resume (PDF)</a>
+    </p>
+  </div>
+
+  <section class="page-section" style="padding-top:0">
+    <div class="container" id="projects">
+      <ProjectExplorer projects={projectsForTrack("software")} />
+    </div>
+  </section>
+</Layout>

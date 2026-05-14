@@ -1,10 +1,3 @@
-## Resume file for GitHub Pages
+Legacy note: the Astro site now serves PDFs from `public/Documents/`.
 
-Place your resume PDF in this folder named exactly:
-
-`cooper-jones-resume.pdf`
-
-The "Download Resume" button in `index.html` links to:
-
-`./Documents/cooper-jones-resume.pdf`
-
+See [`public/Documents/README.md`](../public/Documents/README.md) for the expected resume filename.

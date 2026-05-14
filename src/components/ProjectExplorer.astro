@@ -1,0 +1,101 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import type { Project } from "../data/projects";
+import { allProjectTags } from "../data/projects";
+
+interface Props {
+  projects: Project[];
+  showTagFilters?: boolean;
+}
+
+const { projects, showTagFilters = true } = Astro.props;
+const tags = showTagFilters ? allProjectTags() : [];
+---
+
+<div class="stack-lg" data-project-explorer>
+  {
+    showTagFilters && tags.length > 0 && (
+      <div class="filter-bar" role="group" aria-label="Filter projects by technology">
+        <button type="button" class="filter-btn" data-filter-all aria-pressed="true">
+          All
+        </button>
+        {tags.map((t) => (
+          <button type="button" class="filter-btn" data-filter-tag={t} aria-pressed="false">
+            {t}
+          </button>
+        ))}
+      </div>
+    )
+  }
+  <div class="project-grid">
+    {projects.map((p) => (
+      <ProjectCard project={p} />
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[data-project-explorer]").forEach(function (root) {
+      var cards = Array.prototype.slice.call(root.querySelectorAll("[data-project-card]"));
+      var allBtn = root.querySelector("[data-filter-all]");
+      var tagButtons = Array.prototype.slice.call(root.querySelectorAll("[data-filter-tag]"));
+      var active = {};
+
+      function isActive(tag) {
+        return Object.prototype.hasOwnProperty.call(active, tag) && active[tag];
+      }
+
+      function setActive(tag, on) {
+        if (on) active[tag] = true;
+        else delete active[tag];
+      }
+
+      function renderFilters() {
+        var any = Object.keys(active).some(function (k) {
+          return active[k];
+        });
+        tagButtons.forEach(function (btn) {
+          var tag = (btn.getAttribute("data-filter-tag") || "").toLowerCase();
+          btn.setAttribute("aria-pressed", isActive(tag) ? "true" : "false");
+        });
+        if (allBtn) allBtn.setAttribute("aria-pressed", any ? "false" : "true");
+      }
+
+      function apply() {
+        var keys = Object.keys(active).filter(function (k) {
+          return active[k];
+        });
+        cards.forEach(function (card) {
+          var raw = (card.getAttribute("data-tags") || "").toLowerCase();
+          var cardTags = raw.split(/\s+/).filter(Boolean);
+          var visible =
+            keys.length === 0 ||
+            keys.some(function (t) {
+              return cardTags.indexOf(t.toLowerCase()) !== -1;
+            });
+          if (visible) card.removeAttribute("hidden");
+          else card.setAttribute("hidden", "");
+        });
+        renderFilters();
+      }
+
+      tagButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var tag = (btn.getAttribute("data-filter-tag") || "").toLowerCase();
+          setActive(tag, !isActive(tag));
+          apply();
+        });
+      });
+
+      if (allBtn) {
+        allBtn.addEventListener("click", function () {
+          active = {};
+          apply();
+        });
+      }
+
+      apply();
+    });
+  });
+</script>

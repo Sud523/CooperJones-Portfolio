@@ -1,0 +1,136 @@
+---
+import Layout from "../components/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { asset } from "../lib/paths";
+import { featuredProjects } from "../data/projects";
+import { skillGroups } from "../data/skills";
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const description =
+  "Cooper Jones — software engineer and game developer building gameplay systems, Unity experiences, and polished web software.";
+---
+
+<Layout title="Home" {description} variant="home">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Portfolio</p>
+        <h1>Software engineer &<br /> game developer</h1>
+        <p class="hero-lead">
+          I build reliable software and player-first interactive systems — from Unity gameplay and
+          VR interactions to lightweight, accessible web experiences. Comfortable owning features
+          end-to-end: design intent, implementation, and delivery.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href={`${base}software.html#projects`}>View projects</a>
+          <a class="btn btn-ghost" href={`${base}resume.html`}>Resume</a>
+          <a class="btn btn-ghost" href={`${base}contact.html`}>Contact</a>
+        </div>
+        <div>
+          <p class="kicker" style="margin-top:1.25rem;">Featured skills</p>
+          <div class="pill-list" aria-label="Highlighted skills">
+            <span class="pill">C#</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">Unity</span>
+            <span class="pill">Gameplay systems</span>
+            <span class="pill">VR / XR</span>
+            <span class="pill">Web performance</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-shot">
+          <img src={asset("Images/Hero1.png")} alt="Gameplay still from Don't Stop Climbing" loading="eager" fetchpriority="high" width="1200" height="675" />
+        </div>
+        <div class="hero-shot">
+          <img src={asset("Images/Hero2.png")} alt="Second gameplay still from Don't Stop Climbing" loading="eager" width="1200" height="675" />
+        </div>
+      </div>
+    </div>
+    <a class="scroll-hint" href="#tracks" aria-label="Scroll to overview">⌄</a>
+  </section>
+
+  <section class="page-section" id="tracks">
+    <div class="container">
+      <header class="section-head">
+        <p class="kicker">How I work</p>
+        <h2>Two disciplines, one bar for quality</h2>
+        <p>
+          Whether shipping software or game experiences, I care about clarity, performance, and
+          the next teammate who reads the code or plays the build.
+        </p>
+      </header>
+      <div class="card-grid cols-3">
+        <article class="card track-card">
+          <h3>Software engineering</h3>
+          <p>
+            Typed, testable systems; APIs and tooling; documentation that earns trust. I like small,
+            fast surfaces that stay maintainable as scope grows.
+          </p>
+          <a class="card-link" href={`${base}software.html`}>Explore software work →</a>
+        </article>
+        <article class="card track-card">
+          <h3>Game development</h3>
+          <p>
+            Unity gameplay, level flow, onboarding, and technical design. I prototype quickly,
+            iterate with playtests, and keep systems legible for collaborators.
+          </p>
+          <a class="card-link" href={`${base}games.html`}>Explore game work →</a>
+        </article>
+        <article class="card track-card">
+          <h3>Technical design</h3>
+          <p>
+            Translating creative goals into constraints engineers can implement — encounter pacing,
+            interaction affordances, and measurable player outcomes.
+          </p>
+          <a class="card-link" href={`${base}about.html`}>Read background →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <header class="section-head">
+        <p class="kicker">Toolkit</p>
+        <h2>Featured technologies</h2>
+        <p>Grouped for recruiter scanning — happy to dive deeper on any line item in conversation.</p>
+      </header>
+      <div class="skill-grid">
+        {
+          skillGroups.map((g) => (
+            <div class="skill-block">
+              <h3>{g.title}</h3>
+              <ul>
+                {g.items.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <header class="section-head">
+        <p class="kicker">Highlights</p>
+        <h2>Featured projects</h2>
+        <p>A mixed slice across engineering and game work — each card links out to demos, docs, or source where available.</p>
+      </header>
+      <div class="project-grid">
+        {featuredProjects().map((p) => (
+          <ProjectCard project={p} />
+        ))}
+      </div>
+      <p class="muted" style="margin-top:1rem;">
+        <a href={`${base}software.html`}>Software engineering portfolio</a>
+        ·
+        <a href={`${base}games.html`}>Game development portfolio</a>
+      </p>
+    </div>
+  </section>
+</Layout>
