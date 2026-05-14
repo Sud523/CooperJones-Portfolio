@@ -7,7 +7,7 @@ export type ExperienceItem = {
   highlights: string[];
 };
 
-/** Used on About and Resume; structure is recruiter-scannable. */
+/** Used on the About and Resume pages; structure is recruiter-scannable. */
 export const experience: ExperienceItem[] = [
   {
     id: "swe-focus",

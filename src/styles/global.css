@@ -944,7 +944,7 @@ ul {
   gap: 1rem 1.5rem;
 }
 
-/* Letter-sized preview: fit full page in-frame (view=Fit vs FitH width-only strip) */
+/* Letter-sized resume preview (image export — avoids browser PDF chrome) */
 .resume-preview {
   display: flex;
   flex-direction: column;
@@ -961,6 +961,9 @@ ul {
   width: 100%;
   min-height: 0;
   border: 0;
+  display: block;
+  object-fit: contain;
+  object-position: top center;
   background: #fff;
 }
 

@@ -17,33 +17,30 @@ import { person } from "../site.config";
   </div>
 
   <section class="page-section" style="padding-top:0">
-    <div class="container stack-lg">
-      <div class="card">
-        <h2>Direct</h2>
-        <p>
-          Email:
-          <a href={person.email}>{person.email.replace(/^mailto:/, "")}</a>
-        </p>
-        <p class="muted" style="margin:0;">
-          Update <code>src/site.config.ts</code> with your real address before publishing.
-        </p>
-      </div>
+    <div class="container">
+      <div class="about-sections">
+        <section class="about-section" aria-labelledby="contact-direct-heading">
+          <h2 id="contact-direct-heading">Direct</h2>
+          <p>
+            Email:{" "}
+            <a href={person.email}>{person.email.replace(/^mailto:/, "")}</a>
+          </p>
+          <p class="muted" style="margin:0;">
+            Update <code>src/site.config.ts</code> with your real address before publishing.
+          </p>
+        </section>
 
-      <div class="card">
-        <h2>Profiles</h2>
-        <div class="contact-actions">
-          <a class="btn btn-primary" href={person.github} target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn btn-ghost" href={person.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn btn-ghost" href={person.itch} target="_blank" rel="noreferrer">itch.io</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Optional form</h2>
-        <p>
-          GitHub Pages is static — wire a provider like Formspree or Google Forms if you want a
-          hosted form without a backend. Until then, email works great.
-        </p>
+        <section class="about-section" aria-labelledby="contact-profiles-heading">
+          <h2 id="contact-profiles-heading">Profiles</h2>
+          <p class="muted" style="margin:0 0 0.85rem;">
+            Links open in a new tab.
+          </p>
+          <div class="contact-actions">
+            <a class="btn btn-primary" href={person.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn btn-ghost" href={person.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-ghost" href={person.itch} target="_blank" rel="noreferrer">itch.io</a>
+          </div>
+        </section>
       </div>
     </div>
   </section>

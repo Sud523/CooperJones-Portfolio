@@ -15,7 +15,8 @@ const description =
     <h1>Resume</h1>
     <p class="muted" style="max-width:70ch;">
       Two versions tailored for different roles in software engineering and game development.
-      Each highlights relevant projects, skills, and experience.
+      Inline preview uses exported images (not the PDF viewer); download or open the PDF for print
+      quality. Skills and experience below mirror the About page for quick scanning.
     </p>
   </div>
 
@@ -44,6 +45,7 @@ const description =
       {
         resumes.map((r, i) => {
           const pdf = asset(r.file);
+          const preview = asset(r.previewImage);
           return (
             <div
               class="resume-panel"
@@ -60,18 +62,19 @@ const description =
                     Download ({r.shortLabel})
                   </a>
                   <a class="btn btn-ghost" href={pdf} target="_blank" rel="noreferrer">
-                    Open in new tab
+                    Open PDF in new tab
                   </a>
                 </div>
               </div>
               <div class="resume-preview">
-                <iframe
+                <img
                   class="resume-frame"
-                  title={`${r.label} resume PDF`}
-                  data-resume-iframe={r.id}
+                  src={preview}
+                  alt={`${r.label} resume preview`}
                   loading={i === 0 ? "eager" : "lazy"}
-                  src={i === 0 ? `${pdf}#view=Fit` : undefined}
-                  data-src={`${pdf}#view=Fit`}
+                  decoding="async"
+                  width="816"
+                  height="1056"
                 />
               </div>
             </div>
@@ -148,15 +151,8 @@ const description =
         Object.keys(panels).forEach(function (key) {
           var p = panels[key];
           if (!p) return;
-          if (key === id) {
-            p.removeAttribute("hidden");
-            var iframe = p.querySelector("iframe[data-src]");
-            if (iframe && !iframe.getAttribute("src")) {
-              iframe.setAttribute("src", iframe.getAttribute("data-src") || "");
-            }
-          } else {
-            p.setAttribute("hidden", "");
-          }
+          if (key === id) p.removeAttribute("hidden");
+          else p.setAttribute("hidden", "");
         });
         try {
           history.replaceState(null, "", "#" + id);

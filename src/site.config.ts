@@ -15,21 +15,23 @@ export const person = {
   itch: "https://sud523.itch.io/",
 } as const;
 
-/** PDF paths are under `public/` (served from site root). Edit `file` to match your real filenames. */
+/** PDFs for download / open in tab; `previewImage` is shown inline (PNG/SVG/WebP) to avoid the browser PDF UI. */
 export const resumes = [
   {
     id: "software" as const,
     label: "Software engineering",
     shortLabel: "Software",
     blurb: "Tailored for software engineering, tools, and generalist technical roles.",
-    file: "Documents/Minor Jones Resume Software Engineer.pdf",
+    file: "Images/Minor Jones Resume Software Engineer.png",
+    previewImage: "Images/resume-software-preview.png",
   },
   {
     id: "games" as const,
     label: "Game development",
     shortLabel: "Games",
     blurb: "Tailored for gameplay programming, Unity, technical design, and game design roles.",
-    file: "Documents/Minor Jones Resume Game Designer.pdf",
+    file: "Images/Minor Jones Resume Game Designer.png",
+    previewImage: "Images/resume-games-preview.png",
   },
 ] as const;
 
