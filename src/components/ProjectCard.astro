@@ -8,7 +8,13 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const tagStr = project.tags.map((t) => t.toLowerCase()).join(" ");
+const TAG_SEP = "\u001f";
+const tagStr = project.tags.map((t) => t.toLowerCase()).join(TAG_SEP);
+
+function isPrimaryLinkLabel(label: string) {
+  const x = label.toLowerCase();
+  return x.includes("play") || x === "view live";
+}
 ---
 
 <article class="project-card" data-project-card data-tags={tagStr}>
@@ -75,7 +81,7 @@ const tagStr = project.tags.map((t) => t.toLowerCase()).join(" ");
     {
       project.links.map((l) => (
         <a
-          class:list={["btn", l.label.toLowerCase().includes("play") && "btn-primary"]}
+          class:list={["btn", isPrimaryLinkLabel(l.label) && "btn-primary"]}
           href={resolveHref(l.href, l.external)}
           target={l.external ? "_blank" : undefined}
           rel={l.external ? "noreferrer" : undefined}

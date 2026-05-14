@@ -35,23 +35,24 @@ export const projects: Project[] = [
     featured: true,
     role: "Author",
     tagline:
-      "A fast, accessible multi-page portfolio tuned for both software and game hiring pipelines.",
+      "A fast, accessible multi-page portfolio designed for both software and game development roles.",
     about:
-      "The previous single-page layout skewed heavily toward game work and buried engineering signal. Recruiters needed clearer information architecture, richer previews, and separate entry points for software and game roles.",
+      "Designed and built a multi-page portfolio with a focus on clear navigation, strong information hierarchy, and distinct pathways for software and game work.",
     designGoal:
-      "Ship a fast static site on GitHub Pages with dual-track narrative, accessible markup, and data-driven project content that is easy to extend.",
+      "Create a fast, accessible portfolio with clear information architecture, strong visual hierarchy, and dedicated entry points for different types of work.",
     keyContributions:
       [
-        "Split software and game work into dedicated routes with shared design system",
-        "Data-driven project cards with filtering and scoped media lightbox",
-        "Per-page SEO, sitemap, and structured data for discoverability",
+        "Designed UI layout system focused on clarity, hierarchy, and scanability across pages",
+        "Structured portfolio into distinct software and game sections with consistent navigation patterns",
+        "Implemented project card system with filtering, tagging, and media previews for quick evaluation",
+        "Shaped overall UX flow to support fast browsing and reduced cognitive load for recruiters",
       ],
     stack: ["Astro", "TypeScript", "Vite", "GitHub Pages", "AI-Assisted Development"],
     tags: [
       "Astro",
       "TypeScript",
       "Vite",
-      "Static site",
+      "Static Site",
       "GitHub Pages",
       "SEO",
       "Accessibility",
@@ -171,15 +172,67 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: "Live app (web)",
+        label: "View live",
         href: "https://sud523.github.io/Vinland-App/",
+        external: true,
       },
       {
-        label: "Source code",
+        label: "Source",
         href: "https://github.com/Sud523/Vinland-app",
+        external: true,
       },
-    ], // adjust keys if ProjectLink uses `url` / `type` etc.
+    ],
     // video: { title: "Walkthrough", src: "/videos/vinland.mp4" },
+    gallery: [
+      // Add files under your portfolio `public/` tree, e.g.:
+      // { src: "Images/vinland-home.png", alt: "Home: today’s workout and nutrition checklist" },
+      // { src: "Images/vinland-week.png", alt: "Week view with scheduled workouts" },
+      // { src: "Images/vinland-stats.png", alt: "Stats: streaks and weight trend" },
+    ],
+  },
+    {
+    slug: "brew-mail",
+    title: "Brew Mail",
+    kind: "Web · AI-Assisted Development",
+    tracks: [
+      "software",
+    ],
+    featured: true,
+    role: "Solo engineer with AI-Assisted Development",
+    tagline:
+      "A unified inbox for Gmail and Outlook, with local LLM summarization and RAG Q&A over your own mail.",
+    about:
+      "Brew Mail is a portfolio-grade AI inbox assistant: connect Google and Microsoft mailboxes, sync into a normalized store, and use retrieval-augmented generation (pgvector) plus local Ollama models for classification, summaries, folder suggestions, and grounded “ask my inbox” chat. The web app is a React SPA with a three-column inbox (folders, list, reading pane), account switching, search, and settings for connected accounts and optional filters.",
+    designGoal:
+      "Ship a calm, readable productivity UI—warm neutrals, cream surfaces, and soft depth—so dense email workflows feel approachable without looking like a generic admin dashboard.",
+    keyContributions: [
+      "Designed a small monorepo so the full OAuth → sync → RAG → UI story is easy to review and maintain.",
+      "Implemented a provider-agnostic mail model and API so Gmail and Microsoft Graph payloads are normalized before the UI or RAG pipeline sees them.",
+      "Built ingestion and retrieval: clean and chunk bodies, embed with Ollama, store vectors in Supabase, and answer questions with top-k similarity search plus grounded prompts.",
+      "Delivered end-user flows in the SPA: OAuth login/callback, inbox sync and summarize, AI tag filters, folder rail with AI organize, ask inbox chat, and accounts/settings.",
+    ],
+    stack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "React Router",
+      "Node.js",
+      "Supabase",
+      "AI-Assisted Development",
+      "Ollama",
+      "Google API",
+      "Microsoft Graph API",
+      "JWT Authentication",
+    ],
+    tags: [
+      "RAG",
+      "Vector Database",
+      "OAuth2",
+      "LLM",
+      "TypeScript",
+      "AI-Assisted Development",
+    ],
+    links: [],
     gallery: [
       // Add files under your portfolio `public/` tree, e.g.:
       // { src: "Images/vinland-home.png", alt: "Home: today’s workout and nutrition checklist" },
@@ -192,6 +245,16 @@ export const projects: Project[] = [
 export function allProjectTags(): string[] {
   const set = new Set<string>();
   for (const p of projects) {
+    for (const t of p.tags) set.add(t);
+  }
+  return [...set].sort((a, b) => a.localeCompare(b));
+}
+
+/** Unique tags from projects on a given track (for page-scoped filters). */
+export function allProjectTagsForTrack(track: Track): string[] {
+  const set = new Set<string>();
+  for (const p of projects) {
+    if (!p.tracks.includes(track)) continue;
     for (const t of p.tags) set.add(t);
   }
   return [...set].sort((a, b) => a.localeCompare(b));

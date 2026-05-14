@@ -629,9 +629,17 @@ ul {
 }
 
 @media (min-width: 900px) {
-  .project-grid {
+  .project-grid:not(.project-grid--list) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.project-grid--list {
+  grid-template-columns: 1fr;
+}
+
+.project-grid--list .project-card {
+  min-height: 0;
 }
 
 .project-card {

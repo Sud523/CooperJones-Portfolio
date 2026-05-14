@@ -1,15 +1,23 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
-import type { Project } from "../data/projects";
-import { allProjectTags } from "../data/projects";
+import type { Project, Track } from "../data/projects";
+import { allProjectTags, allProjectTagsForTrack } from "../data/projects";
 
 interface Props {
   projects: Project[];
   showTagFilters?: boolean;
+  /** When set, filter chips are built only from projects on this track. */
+  tagTrack?: Track;
+  /** `list` = one full-width column (e.g. software page). */
+  layout?: "grid" | "list";
 }
 
-const { projects, showTagFilters = true } = Astro.props;
-const tags = showTagFilters ? allProjectTags() : [];
+const { projects, showTagFilters = true, tagTrack, layout = "grid" } = Astro.props;
+const tags = showTagFilters
+  ? tagTrack
+    ? allProjectTagsForTrack(tagTrack)
+    : allProjectTags()
+  : [];
 ---
 
 <div class="stack-lg" data-project-explorer>
@@ -27,7 +35,7 @@ const tags = showTagFilters ? allProjectTags() : [];
       </div>
     )
   }
-  <div class="project-grid">
+  <div class:list={["project-grid", layout === "list" && "project-grid--list"]}>
     {projects.map((p) => (
       <ProjectCard project={p} />
     ))}
@@ -36,6 +44,7 @@ const tags = showTagFilters ? allProjectTags() : [];
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
+    var TAG_SEP = "\x1f";
     document.querySelectorAll("[data-project-explorer]").forEach(function (root) {
       var cards = Array.prototype.slice.call(root.querySelectorAll("[data-project-card]"));
       var allBtn = root.querySelector("[data-filter-all]");
@@ -67,8 +76,8 @@ const tags = showTagFilters ? allProjectTags() : [];
           return active[k];
         });
         cards.forEach(function (card) {
-          var raw = (card.getAttribute("data-tags") || "").toLowerCase();
-          var cardTags = raw.split(/\s+/).filter(Boolean);
+          var raw = card.getAttribute("data-tags") || "";
+          var cardTags = raw.split(TAG_SEP).filter(Boolean);
           var visible =
             keys.length === 0 ||
             keys.some(function (t) {

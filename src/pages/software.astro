@@ -22,7 +22,11 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
   <section class="page-section" style="padding-top:0">
     <div class="container" id="projects">
-      <ProjectExplorer projects={projectsForTrack("software")} />
+      <ProjectExplorer
+        projects={projectsForTrack("software")}
+        tagTrack="software"
+        layout="list"
+      />
     </div>
   </section>
 </Layout>
