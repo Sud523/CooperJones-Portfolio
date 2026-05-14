@@ -532,15 +532,46 @@ ul {
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
+.about-section.about-section--no-top-rule {
+  border-top: none;
+}
+
 .about-section h2 {
   color: var(--text);
   margin-top: 0;
 }
 
-.about-timeline {
-  margin-top: clamp(2rem, 5vw, 3rem);
-  padding-top: clamp(1.5rem, 4vw, 2.25rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+/* Group titles under an in-page h2 (e.g. home Skills Snapshot); job titles use .about-exp-block h3 */
+.about-section > h3 {
+  color: var(--text);
+  margin-top: 0;
+  font-size: var(--step-2);
+}
+
+.about-exp-entries {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.35rem;
+}
+
+.about-exp-block + .about-exp-block {
+  margin-top: clamp(1.75rem, 4.5vw, 2.5rem);
+  padding-top: 0;
+}
+
+.about-exp-block h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+  font-size: var(--step-1);
+}
+
+.about-exp-meta {
+  margin: 0 0 0.85rem;
+}
+
+.page-title--about-gap {
+  padding-bottom: clamp(2.5rem, 8vw, 5rem);
 }
 
 /* Cards */
@@ -720,33 +751,6 @@ ul {
   border-color: var(--border-strong);
 }
 
-/* Timeline */
-.timeline {
-  display: grid;
-  gap: 1rem;
-}
-
-.timeline-item {
-  border: 1px solid var(--border);
-  padding: 1.1rem 1.2rem;
-  background: var(--bg-elevated);
-}
-
-.timeline-item header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.35rem;
-}
-
-.timeline-item h3 {
-  margin: 0;
-  font-size: var(--step-1);
-  color: var(--text);
-}
-
 .period {
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -922,10 +926,33 @@ ul {
   display: none !important;
 }
 
-.resume-frame {
+.resume-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4.5vw, 2.75rem);
+}
+
+.resume-panel-actions {
+  gap: 1rem 1.5rem;
+}
+
+/* Letter-sized preview: fit full page in-frame (view=Fit vs FitH width-only strip) */
+.resume-preview {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-height: 72vh;
+  max-width: 920px;
+  margin-inline: auto;
+  aspect-ratio: 8.5 / 11;
   border: 1px solid var(--border);
+  background: #fff;
+}
+
+.resume-frame {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: 0;
   background: #fff;
 }
 
@@ -948,45 +975,6 @@ ul {
 
 .page-title h1 {
   margin-bottom: 0.25em;
-}
-
-.skill-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-@media (min-width: 720px) {
-  .skill-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.skill-block {
-  border: 1px solid var(--border);
-  padding: 1rem 1.1rem;
-  background: var(--bg-elevated);
-}
-
-.skill-block h3 {
-  font-size: 0.95rem;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.skill-block ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.skill-block li {
-  padding: 0.25rem 0.55rem;
-  border: 1px solid var(--border);
-  font-size: 0.85rem;
-  color: var(--text-muted);
 }
 
 .contact-actions {

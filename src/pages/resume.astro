@@ -46,76 +46,82 @@ const description =
           const pdf = asset(r.file);
           return (
             <div
-              class="resume-panel stack-lg"
+              class="resume-panel"
               id={`resume-panel-${r.id}`}
               role="tabpanel"
               aria-labelledby={`tab-${r.id}`}
               hidden={i !== 0}
               data-resume-panel={r.id}
             >
-              <p class="muted" style="margin:0;">{r.blurb}</p>
-              <div class="contact-actions">
-                <a class="btn btn-primary" href={pdf} download>
-                  Download ({r.shortLabel})
-                </a>
-                <a class="btn btn-ghost" href={pdf} target="_blank" rel="noreferrer">
-                  Open in new tab
-                </a>
+              <div class="resume-panel-intro stack">
+                <p class="muted" style="margin:0;">{r.blurb}</p>
+                <div class="contact-actions resume-panel-actions">
+                  <a class="btn btn-primary" href={pdf} download>
+                    Download ({r.shortLabel})
+                  </a>
+                  <a class="btn btn-ghost" href={pdf} target="_blank" rel="noreferrer">
+                    Open in new tab
+                  </a>
+                </div>
               </div>
-              <iframe
-                class="resume-frame"
-                title={`${r.label} resume PDF`}
-                data-resume-iframe={r.id}
-                loading={i === 0 ? "eager" : "lazy"}
-                src={i === 0 ? `${pdf}#view=FitH` : undefined}
-                data-src={`${pdf}#view=FitH`}
-              />
+              <div class="resume-preview">
+                <iframe
+                  class="resume-frame"
+                  title={`${r.label} resume PDF`}
+                  data-resume-iframe={r.id}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  src={i === 0 ? `${pdf}#view=Fit` : undefined}
+                  data-src={`${pdf}#view=Fit`}
+                />
+              </div>
             </div>
           );
         })
       }
 
-      <div class="card">
+      <header class="section-head section-head--compact">
+        <p class="kicker">Stack</p>
         <h2>Skills snapshot</h2>
-        <p class="muted">
-          These sections are shared across both resumes; each PDF may emphasize different bullets.
-        </p>
-        <div class="skill-grid">
-          {
-            skillGroups.map((g) => (
-              <div class="skill-block">
-                <h3>{g.title}</h3>
-                <ul>
-                  {g.items.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div>
-        <header class="section-head">
-          <p class="kicker">Timeline</p>
-          <h2>Experience highlights</h2>
-        </header>
-        <div class="timeline">
-          {
-            experience.map((e) => (
-              <article class="timeline-item">
-                <header>
+      </header>
+      <p class="muted" style="margin:0 0 clamp(0.5rem, 2vw, 1rem); max-width:70ch;">
+        These sections are shared across both resumes; each PDF may emphasize different bullets.
+      </p>
+      <div class="about-sections">
+        {
+          skillGroups.map((g, idx) => (
+            <section class="about-section" aria-labelledby={`resume-skills-${idx}`}>
+              <h3 id={`resume-skills-${idx}`}>{g.title}</h3>
+              <ul>
+                {g.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+        <section class="about-section" aria-labelledby="resume-exp-overview-heading">
+          <p class="kicker">My Journey so Far</p>
+          <h2 id="resume-exp-overview-heading">Experience Overview</h2>
+          <div class="about-exp-entries">
+            {
+              experience.map((e) => (
+                <div class="about-exp-block">
                   <h3>{e.title}</h3>
-                  <span class="period">{e.period}</span>
-                </header>
-                <p class="muted" style="margin:0;">
-                  <strong style="color:var(--text)">{e.org}</strong> — {e.summary}
-                </p>
-              </article>
-            ))
-          }
-        </div>
+                  <p class="about-exp-meta muted">
+                    <strong style="color:var(--text)">{e.org}</strong>
+                    <span class="period"> · {e.period}</span>
+                  </p>
+                  <p>{e.summary}</p>
+                  <ul>
+                    {e.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </section>
       </div>
     </div>
   </section>

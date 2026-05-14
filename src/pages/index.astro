@@ -96,17 +96,17 @@ const description =
         <p class="kicker">Stack</p>
         <h2>Skills Snapshot</h2>
       </header>
-      <div class="skill-grid">
+      <div class="about-sections">
         {
-          skillGroups.map((g) => (
-            <div class="skill-block">
-              <h3>{g.title}</h3>
+          skillGroups.map((g, idx) => (
+            <section class="about-section" aria-labelledby={`skills-snap-${idx}`}>
+              <h3 id={`skills-snap-${idx}`}>{g.title}</h3>
               <ul>
                 {g.items.map((i) => (
                   <li>{i}</li>
                 ))}
               </ul>
-            </div>
+            </section>
           ))
         }
       </div>

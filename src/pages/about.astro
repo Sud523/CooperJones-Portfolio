@@ -7,7 +7,7 @@ import { experience } from "../data/experience";
   title="About"
   description="Background, technical interests, and career direction for Cooper Jones — software engineer and game developer."
 >
-  <div class="container page-title">
+  <div class="container page-title page-title--about-gap">
     <p class="kicker">About</p>
     <h1>Biography & Focus</h1>
     <p class="muted" style="max-width:70ch;">
@@ -54,33 +54,33 @@ import { experience } from "../data/experience";
             tools, or user-focused software products.
           </p>
         </section>
-      </div>
 
-      <div class="about-timeline">
-        <header class="section-head">
+        <section
+          class="about-section about-section--no-top-rule"
+          aria-labelledby="exp-overview-heading"
+        >
           <p class="kicker">My Journey so Far</p>
-          <h2>Experience Overview</h2>
-        </header>
-        <div class="timeline">
-          {
-            experience.map((e) => (
-              <article class="timeline-item">
-                <header>
+          <h2 id="exp-overview-heading">Experience Overview</h2>
+          <div class="about-exp-entries">
+            {
+              experience.map((e) => (
+                <div class="about-exp-block">
                   <h3>{e.title}</h3>
-                  <span class="period">{e.period}</span>
-                </header>
-                <p class="muted" style="margin:0 0 0.5rem;">
-                  <strong style="color:var(--text)">{e.org}</strong> — {e.summary}
-                </p>
-                <ul>
-                  {e.highlights.map((h) => (
-                    <li>{h}</li>
-                  ))}
-                </ul>
-              </article>
-            ))
-          }
-        </div>
+                  <p class="about-exp-meta muted">
+                    <strong style="color:var(--text)">{e.org}</strong>
+                    <span class="period"> · {e.period}</span>
+                  </p>
+                  <p>{e.summary}</p>
+                  <ul>
+                    {e.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </section>
       </div>
     </div>
   </section>

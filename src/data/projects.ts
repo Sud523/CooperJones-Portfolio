@@ -15,8 +15,9 @@ export type Project = {
   featured: boolean;
   role: string;
   tagline: string;
-  problem: string;
-  outcomes: string[];
+  about: string;
+  designGoal: string;
+  keyContributions: string[];
   stack: string[];
   tags: string[];
   links: ProjectLink[];
@@ -35,15 +36,27 @@ export const projects: Project[] = [
     role: "Author",
     tagline:
       "A fast, accessible multi-page portfolio tuned for both software and game hiring pipelines.",
-    problem:
-      "A single long-scroll page skewed game-only and buried engineering signal; recruiters needed clearer IA and richer previews.",
-    outcomes: [
-      "Split software and game work into dedicated routes with shared design system",
-      "Data-driven project cards with filtering and scoped media lightbox",
-      "Per-page SEO, sitemap, and structured data for discoverability",
+    about:
+      "The previous single-page layout skewed heavily toward game work and buried engineering signal. Recruiters needed clearer information architecture, richer previews, and separate entry points for software and game roles.",
+    designGoal:
+      "Ship a fast static site on GitHub Pages with dual-track narrative, accessible markup, and data-driven project content that is easy to extend.",
+    keyContributions:
+      [
+        "Split software and game work into dedicated routes with shared design system",
+        "Data-driven project cards with filtering and scoped media lightbox",
+        "Per-page SEO, sitemap, and structured data for discoverability",
+      ],
+    stack: ["Astro", "TypeScript", "Vite", "GitHub Pages", "AI-Assisted Development"],
+    tags: [
+      "Astro",
+      "TypeScript",
+      "Vite",
+      "Static site",
+      "GitHub Pages",
+      "SEO",
+      "Accessibility",
+      "AI-Assisted Development",
     ],
-    stack: ["Astro", "TypeScript", "CSS", "GitHub Pages"],
-    tags: ["Web", "Astro", "TypeScript", "Accessibility", "SEO"],
     links: [
       {
         label: "Source",
@@ -61,16 +74,16 @@ export const projects: Project[] = [
     featured: true,
     role: "Technical game designer · Gameplay programmer · Level designer",
     tagline:
-      "A narrative-driven climb where level flow and collectibles reinforce persistence—not punishment.",
-    problem:
-      "Communicate a psychological climb theme through layout and mechanics while keeping movement readable and exploration rewarding.",
-    outcomes: [
-      "Shipped solo vertical slice: player controller, encounters, narrative triggers, onboarding",
-      "Designed feather collectibles off the critical path to reward experimentation and risk",
-      "Used non-linear vertical routing (horizontal and brief descents) so “up” never feels one-note",
+      "Don't Stop Climbing is a 2D narrative-driven platformer where players guide Alaric through the base of a mysterious mountain while learning core movement mechanics and exploring unsettling environments. The game focuses on themes of persistence and psychological struggle, framing death not as failure but as a brief pause in an ongoing climb.",
+    about:
+      "While building Don't Stop Climbing, I focused on how level structure and mechanics could reinforce the theme of persistence. Although the overall progression is vertical, many sections require players to move horizontally or briefly descend before continuing upward, emphasizing that progress is not always a straight climb. I also designed the feather collectible system to encourage exploration. Feathers are placed slightly off the main path, often requiring players to experiment with movement or approach areas from different angles. Collecting them rewards players with additional currency and, in later versions of the project, will unlock additional rewards. This system helps reinforce the idea that slowing down and exploring the mountain can be just as valuable as pushing upward as quickly as possible.",
+    designGoal:
+      "Communicate persistence through layout and mechanics: readable movement, non-linear vertical routing, and an exploration-first collectible economy.",
+    keyContributions: [
+      "Solo development: gameplay systems, player controller, level design, narrative triggers, and onboarding flow. Art and audio assets sourced externally.",
     ],
-    stack: ["Unity", "C#", "2D tooling", "Level blockouts"],
-    tags: ["Unity", "C#", "2D", "Level design", "Systems", "Solo dev"],
+    stack: ["Unity", "C#", "Level Design"],
+    tags: ["Unity", "C#", "Level Design", "Solo Dev"],
     links: [
       {
         label: "Play on itch.io",
@@ -105,21 +118,73 @@ export const projects: Project[] = [
     featured: true,
     role: "Technical game designer · Gameplay programmer · VR interaction",
     tagline:
-      "VR escape-room set in a surreal children's show—systems built to be placed anywhere while staying legible and rewarding.",
-    problem:
-      "Deliver flexible, authorable interaction systems (claw machine and prizes) that support progression, achievements, and exploration in VR.",
-    outcomes: [
-      "Implemented claw machine interaction and prize reward logic in Unity for Quest",
-      "Partnered on tying systems into achievements and environmental storytelling beats",
-      "Kept systems data-driven so designers could place props without rewriting core logic",
-    ],
+      "Dolly's World is a VR escape-room experience on the Oculus Quest, set inside a surreal 1990s/early 2000s children's TV show. Players solve puzzles to uncover the story of Bee and Jess, exploring themes of queer relationships, labor, and class through immersive interactions and environmental storytelling.",
+    about:
+      "My focus in building Dolly's World was on technical implementation and interactive design, particularly the claw machine and prize systems. I worked on how these systems would interact with players as they explored the environment and pursued achievements. These systems were built to be flexible, allowing other developers to place them within designed spaces or anywhere in the world while still maintaining meaningful challenge, curiosity, and reward for the player.",
+    designGoal:
+      "Deliver flexible, authorable interaction systems (claw machine and prizes) on Quest that support progression, achievements, and designer-placed props without rewriting core logic.",
+    keyContributions: [
+        "Implemented the claw machine interaction and prize reward systems in Unity, including interaction logic and reward behavior.",
+        "Contributed to the design of how these systems tie into player progression, achievements, and exploration within the VR experience.",
+      ],
     stack: ["Unity", "C#", "OpenXR / Quest", "VR UX"],
-    tags: ["Unity", "C#", "VR", "XR", "Systems", "Research"],
+    tags: ["Unity", "C#", "VR", "Research"],
     links: [],
     gallery: [
       { src: "Images/DW1.png", alt: "Dolly's World VR screenshot 1" },
       { src: "Images/DW2.png", alt: "Dolly's World VR screenshot 2" },
       { src: "Images/DW3.png", alt: "Dolly's World VR screenshot 3" },
+    ],
+  },
+  {
+    slug: "vinland",
+    title: "Vinland",
+    kind: "Cross-platform app",
+    tracks: ["software"],
+    featured: true,
+    role: "Solo engineer with AI-Assisted Development",
+    tagline:
+      "A fitness and nutrition journal that syncs across iOS, Android, and the web.",
+    about:
+      "Vinland helps people plan workouts, log daily training and nutrition, run interval timers, and see trends over time. Users authenticate with email and password; data lives in Supabase (PostgreSQL) with row-level security so each person only sees their own journal, templates, and profile. The same codebase ships native builds through Expo and a static web bundle hosted on GitHub Pages.",
+    designGoal:
+      "Keep logging fast on a phone (today’s checklist, week planning, timer) while still feeling trustworthy for long-term data—clear locks for one-per-day fields, read-only past days where it matters, and a guided first-launch onboarding so the app never feels empty or confusing after sign-up.",
+    keyContributions: [
+      "Modeled and migrated a Supabase schema (profiles, journal days/tasks, workout templates) with RLS aligned to auth users.",
+      "Implemented a storage facade over Supabase so screens load on focus and persist with full-journal / full-library replace patterns consistent with the original local-first design.",
+      "Built a one-time AsyncStorage → cloud migration for legacy installs, with a gate so the UI never reads an empty journal mid-import.",
+      "Added account deletion via a Supabase Edge Function using the service role, with client wiring and deploy scripting in the repo.",
+      "Shipped static web export to GitHub Pages (including .nojekyll for `_expo` assets) and an explicit configuration-missing screen when build-time env vars are absent.",
+    ],
+    stack: [
+      "TypeScript",
+      "React Native",
+      "Supabase",
+      "GitHub Pages",
+    ],
+    tags: [
+      "TypeScript",
+      "React Native",
+      "Supabase",
+      "GitHub Pages",
+      "AI-Assisted Development",
+    ],
+    links: [
+      {
+        label: "Live app (web)",
+        href: "https://sud523.github.io/Vinland-App/",
+      },
+      {
+        label: "Source code",
+        href: "https://github.com/Sud523/Vinland-app",
+      },
+    ], // adjust keys if ProjectLink uses `url` / `type` etc.
+    // video: { title: "Walkthrough", src: "/videos/vinland.mp4" },
+    gallery: [
+      // Add files under your portfolio `public/` tree, e.g.:
+      // { src: "Images/vinland-home.png", alt: "Home: today’s workout and nutrition checklist" },
+      // { src: "Images/vinland-week.png", alt: "Week view with scheduled workouts" },
+      // { src: "Images/vinland-stats.png", alt: "Stats: streaks and weight trend" },
     ],
   },
 ];

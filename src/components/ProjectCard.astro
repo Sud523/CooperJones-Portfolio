@@ -17,13 +17,14 @@ const tagStr = project.tags.map((t) => t.toLowerCase()).join(" ");
     <h3>{project.title}</h3>
     <p class="project-meta">{project.role}</p>
     <p>{project.tagline}</p>
+    {project.about.trim() ? <p>{project.about}</p> : null}
     <p>
-      <strong style="color:var(--text)">Problem</strong> — {project.problem}
+      <strong style="color:var(--text)">Design focus</strong> — {project.designGoal}
     </p>
-    <p><strong style="color:var(--text)">What shipped</strong></p>
+    <p><strong style="color:var(--text)">Key contributions</strong></p>
     <ul>
-      {project.outcomes.map((o) => (
-        <li>{o}</li>
+      {project.keyContributions.map((item) => (
+        <li>{item}</li>
       ))}
     </ul>
     <div class="tag-row" aria-label="Technologies">
