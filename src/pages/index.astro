@@ -60,32 +60,38 @@ const description =
           and maintainability for both the people using the product and the people working on it.
         </p>
       </header>
-      <div class="card-grid cols-3">
-        <article class="card track-card">
-          <h3>Software engineering</h3>
-          <p>
-            Building reliable applications, tools, and systems with a focus on readability,
-            maintainability, and practical problem solving. Comfortable working across frontend,
-            backend, and feature implementation.
-          </p>
-          <a class="card-link" href={`${base}software.html`}>Explore software work →</a>
-        </article>
-        <article class="card track-card">
-          <h3>Game development</h3>
-          <p>
-            Developing gameplay systems, level flow, and interactive mechanics in Unity with an
-            emphasis on player experience, iteration, and clean technical foundations.
-          </p>
-          <a class="card-link" href={`${base}games.html`}>Explore game work →</a>
-        </article>
-        <article class="card track-card">
-          <h3>Technical design</h3>
-          <p>
-            Bridging creative direction and implementation by turning design goals into structured,
-            testable systems that support both player experience and development workflows.
-          </p>
-          <a class="card-link" href={`${base}about.html`}>Read background →</a>
-        </article>
+      <div class="card-grid cols-3 track-card-grid">
+        <a class="card track-card track-card-link" href={`${base}software.html`}>
+          <div class="track-card-body">
+            <h3>Software engineering</h3>
+            <p>
+              Building reliable applications, tools, and systems with a focus on readability,
+              maintainability, and practical problem solving. Comfortable working across frontend,
+              backend, and feature implementation.
+            </p>
+            <span class="track-card-cta">Explore software work →</span>
+          </div>
+        </a>
+        <a class="card track-card track-card-link" href={`${base}games.html`}>
+          <div class="track-card-body">
+            <h3>Game development</h3>
+            <p>
+              Developing gameplay systems, level flow, and interactive mechanics in Unity with an
+              emphasis on player experience, iteration, and clean technical foundations.
+            </p>
+            <span class="track-card-cta">Explore game work →</span>
+          </div>
+        </a>
+        <a class="card track-card track-card-link" href={`${base}about.html`}>
+          <div class="track-card-body">
+            <h3>Technical design</h3>
+            <p>
+              Bridging creative direction and implementation by turning design goals into structured,
+              testable systems that support both player experience and development workflows.
+            </p>
+            <span class="track-card-cta">Read background →</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
