@@ -61,7 +61,7 @@ export const projects: Project[] = [
     links: [
       {
         label: "Source",
-        href: "https://github.com/CooperJones/CooperJones-Portfolio",
+        href: "https://github.com/Sud523/CooperJones-Portfolio",
         external: true,
       },
     ],
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     kind: "2D narrative platformer",
     tracks: ["games"],
     featured: true,
-    role: "Technical game designer · Gameplay programmer · Level designer",
+    role: "Technical Game Designer · Gameplay Programmer · Level Designer",
     tagline:
       "Don't Stop Climbing is a 2D narrative-driven platformer where players guide Alaric through the base of a mysterious mountain while learning core movement mechanics and exploring unsettling environments. The game focuses on themes of persistence and psychological struggle, framing death not as failure but as a brief pause in an ongoing climb.",
     about:
@@ -117,7 +117,7 @@ export const projects: Project[] = [
     kind: "VR research experience · Quest",
     tracks: ["games"],
     featured: true,
-    role: "Technical game designer · Gameplay programmer · VR interaction",
+    role: "Technical Game Designer · Gameplay Programmer · VR Interaction",
     tagline:
       "Dolly's World is a VR escape-room experience on the Oculus Quest, set inside a surreal 1990s/early 2000s children's TV show. Players solve puzzles to uncover the story of Bee and Jess, exploring themes of queer relationships, labor, and class through immersive interactions and environmental storytelling.",
     about:
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     kind: "Cross-platform app",
     tracks: ["software"],
     featured: true,
-    role: "Solo engineer with AI-Assisted Development",
+    role: "Solo Engineer with AI-Assisted Development",
     tagline:
       "A fitness and nutrition journal that syncs across iOS, Android, and the web.",
     about:
@@ -155,13 +155,13 @@ export const projects: Project[] = [
       "Implemented a storage facade over Supabase so screens load on focus and persist with full-journal / full-library replace patterns consistent with the original local-first design.",
       "Built a one-time AsyncStorage → cloud migration for legacy installs, with a gate so the UI never reads an empty journal mid-import.",
       "Added account deletion via a Supabase Edge Function using the service role, with client wiring and deploy scripting in the repo.",
-      "Shipped static web export to GitHub Pages (including .nojekyll for `_expo` assets) and an explicit configuration-missing screen when build-time env vars are absent.",
     ],
     stack: [
       "TypeScript",
       "React Native",
       "Supabase",
       "GitHub Pages",
+      "AI-Assisted Development",
     ],
     tags: [
       "TypeScript",
@@ -182,27 +182,26 @@ export const projects: Project[] = [
         external: true,
       },
     ],
-    // video: { title: "Walkthrough", src: "/videos/vinland.mp4" },
+    video: { title: "Vinland Walkthrough", src: "https://www.youtube.com/embed/AcKmU0KNdYY" },
     gallery: [
-      // Add files under your portfolio `public/` tree, e.g.:
-      // { src: "Images/vinland-home.png", alt: "Home: today’s workout and nutrition checklist" },
-      // { src: "Images/vinland-week.png", alt: "Week view with scheduled workouts" },
-      // { src: "Images/vinland-stats.png", alt: "Stats: streaks and weight trend" },
+      { src: "Images/Vinland (1).png", alt: "Vinland screenshot 1" },
+      { src: "Images/Vinland (2).png", alt: "Vinland screenshot 2" },
+      { src: "Images/Vinland (3).png", alt: "Vinland screenshot 3" },
     ],
   },
     {
-    slug: "brew-mail",
-    title: "Brew Mail",
+    slug: "inbox-brew",
+    title: "Inbox Brew",
     kind: "Web · AI-Assisted Development",
     tracks: [
       "software",
     ],
     featured: true,
-    role: "Solo engineer with AI-Assisted Development",
+    role: "Solo Engineer with AI-Assisted Development",
     tagline:
       "A unified inbox for Gmail and Outlook, with local LLM summarization and RAG Q&A over your own mail.",
     about:
-      "Brew Mail is a portfolio-grade AI inbox assistant: connect Google and Microsoft mailboxes, sync into a normalized store, and use retrieval-augmented generation (pgvector) plus local Ollama models for classification, summaries, folder suggestions, and grounded “ask my inbox” chat. The web app is a React SPA with a three-column inbox (folders, list, reading pane), account switching, search, and settings for connected accounts and optional filters.",
+      "Inbox Brew is a portfolio-grade AI inbox assistant: connect Google and Microsoft mailboxes, sync into a normalized store, and use retrieval-augmented generation (pgvector) plus local Ollama models for classification, summaries, folder suggestions, and grounded “ask my inbox” chat. The web app is a React SPA with a three-column inbox (folders, list, reading pane), account switching, search, and settings for connected accounts and optional filters.",
     designGoal:
       "Ship a calm, readable productivity UI—warm neutrals, cream surfaces, and soft depth—so dense email workflows feel approachable without looking like a generic admin dashboard.",
     keyContributions: [
@@ -231,13 +230,14 @@ export const projects: Project[] = [
       "LLM",
       "TypeScript",
       "AI-Assisted Development",
+      "Supabase",
     ],
     links: [],
+    video: { title: "Inbox Brew Walkthrough", src: "https://www.youtube.com/embed/dBsVXFAWoCU" },
     gallery: [
-      // Add files under your portfolio `public/` tree, e.g.:
-      // { src: "Images/vinland-home.png", alt: "Home: today’s workout and nutrition checklist" },
-      // { src: "Images/vinland-week.png", alt: "Week view with scheduled workouts" },
-      // { src: "Images/vinland-stats.png", alt: "Stats: streaks and weight trend" },
+       { src: "Images/InboxBrew (1).png", alt: "Inbox Brew screenshot 1" },
+       { src: "Images/InboxBrew (2).png", alt: "Inbox Brew screenshot 2" },
+       { src: "Images/InboxBrew (3).png", alt: "Inbox Brew screenshot 3" },
     ],
   },
 ];
