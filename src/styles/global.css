@@ -683,6 +683,11 @@ ul {
   min-height: 100%;
 }
 
+/* `display: flex` above wins over the UA [hidden] rule — must hide filtered cards explicitly */
+.project-card[hidden] {
+  display: none !important;
+}
+
 .project-card h3 {
   color: var(--text);
   font-size: var(--step-1);

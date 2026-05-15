@@ -28,7 +28,12 @@ const tags = showTagFilters
           All
         </button>
         {tags.map((t) => (
-          <button type="button" class="filter-btn" data-filter-tag={t} aria-pressed="false">
+          <button
+            type="button"
+            class="filter-btn"
+            data-filter-tag={t.toLowerCase()}
+            aria-pressed="false"
+          >
             {t}
           </button>
         ))}
@@ -43,68 +48,93 @@ const tags = showTagFilters
 </div>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     var TAG_SEP = "\x1f";
-    document.querySelectorAll("[data-project-explorer]").forEach(function (root) {
-      var cards = Array.prototype.slice.call(root.querySelectorAll("[data-project-card]"));
-      var allBtn = root.querySelector("[data-filter-all]");
-      var tagButtons = Array.prototype.slice.call(root.querySelectorAll("[data-filter-tag]"));
-      var active = {};
 
-      function isActive(tag) {
-        return Object.prototype.hasOwnProperty.call(active, tag) && active[tag];
-      }
+    function initProjectExplorers() {
+      document.querySelectorAll("[data-project-explorer]").forEach(function (root) {
+        var cards = Array.prototype.slice.call(
+          root.querySelectorAll(":scope [data-project-card]")
+        );
+        var allBtn = root.querySelector("[data-filter-all]");
+        var tagButtons = Array.prototype.slice.call(
+          root.querySelectorAll(":scope [data-filter-tag]")
+        );
+        var active = {};
 
-      function setActive(tag, on) {
-        if (on) active[tag] = true;
-        else delete active[tag];
-      }
+        function isActive(tag) {
+          return Object.prototype.hasOwnProperty.call(active, tag) && active[tag];
+        }
 
-      function renderFilters() {
-        var any = Object.keys(active).some(function (k) {
-          return active[k];
-        });
+        function setActive(tag, on) {
+          if (on) active[tag] = true;
+          else delete active[tag];
+        }
+
+        function cardHasTag(cardTags, filterTag) {
+          for (var i = 0; i < cardTags.length; i++) {
+            if (cardTags[i] === filterTag) return true;
+          }
+          return false;
+        }
+
+        function renderFilters() {
+          var any = Object.keys(active).some(function (k) {
+            return active[k];
+          });
+          tagButtons.forEach(function (btn) {
+            var tag = btn.getAttribute("data-filter-tag") || "";
+            btn.setAttribute("aria-pressed", isActive(tag) ? "true" : "false");
+          });
+          if (allBtn) allBtn.setAttribute("aria-pressed", any ? "false" : "true");
+        }
+
+        function apply() {
+          var keys = Object.keys(active).filter(function (k) {
+            return active[k];
+          });
+          cards.forEach(function (card) {
+            var raw = card.getAttribute("data-tags") || "";
+            var cardTags = raw.split(TAG_SEP).filter(Boolean);
+            var visible =
+              keys.length === 0 ||
+              keys.some(function (t) {
+                return cardHasTag(cardTags, t);
+              });
+            if (visible) {
+              card.removeAttribute("hidden");
+              card.removeAttribute("aria-hidden");
+            } else {
+              card.setAttribute("hidden", "");
+              card.setAttribute("aria-hidden", "true");
+            }
+          });
+          renderFilters();
+        }
+
         tagButtons.forEach(function (btn) {
-          var tag = (btn.getAttribute("data-filter-tag") || "").toLowerCase();
-          btn.setAttribute("aria-pressed", isActive(tag) ? "true" : "false");
+          btn.addEventListener("click", function () {
+            var tag = btn.getAttribute("data-filter-tag") || "";
+            setActive(tag, !isActive(tag));
+            apply();
+          });
         });
-        if (allBtn) allBtn.setAttribute("aria-pressed", any ? "false" : "true");
-      }
 
-      function apply() {
-        var keys = Object.keys(active).filter(function (k) {
-          return active[k];
-        });
-        cards.forEach(function (card) {
-          var raw = card.getAttribute("data-tags") || "";
-          var cardTags = raw.split(TAG_SEP).filter(Boolean);
-          var visible =
-            keys.length === 0 ||
-            keys.some(function (t) {
-              return cardTags.indexOf(t.toLowerCase()) !== -1;
-            });
-          if (visible) card.removeAttribute("hidden");
-          else card.setAttribute("hidden", "");
-        });
-        renderFilters();
-      }
+        if (allBtn) {
+          allBtn.addEventListener("click", function () {
+            active = {};
+            apply();
+          });
+        }
 
-      tagButtons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var tag = (btn.getAttribute("data-filter-tag") || "").toLowerCase();
-          setActive(tag, !isActive(tag));
-          apply();
-        });
+        apply();
       });
+    }
 
-      if (allBtn) {
-        allBtn.addEventListener("click", function () {
-          active = {};
-          apply();
-        });
-      }
-
-      apply();
-    });
-  });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initProjectExplorers);
+    } else {
+      initProjectExplorers();
+    }
+  })();
 </script>
